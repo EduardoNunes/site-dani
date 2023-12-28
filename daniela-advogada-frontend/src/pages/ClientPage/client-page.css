@@ -1,0 +1,134 @@
+.client-page {
+  display: flex;
+  position: relative;
+  width: 100vw;
+  height: calc(100vh - 170px);
+}
+
+.client-page-dark {
+  background-color: rgba(var(--cor-preto), 1);
+}
+
+.client-page .background {
+  display: flex;
+  justify-content: center;
+
+  height: calc(100vh - 40px);
+  width: 100%;
+
+  object-fit: cover;
+  object-position: center 25%;
+}
+
+.client-page .container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+
+  width: 100%;
+  height: 100%;
+  margin-top: 130px;
+  background-color: rgba(var(--cor-branco), 0.6);
+}
+
+.client-page-dark .container {
+  background-color: rgba(var(--cor-preto), 0);
+}
+
+.client-page .container .table {
+  height: 90%;
+  width: 76%;
+  border-radius: 10px;
+  border: 1px solid black;
+}
+
+.client-page-dark .container .table {
+  border: 1px solid rgba(var(--cor-rosa), 1);
+}
+
+.client-page .container .table .content {
+  height: 100%;
+  width: 100%;
+}
+
+.client-page .container .table .content .title {
+  height: 10%;
+}
+
+.client-page .container .table .content .title ul {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 100%;
+  border: 1px solid black;
+  border-radius: 10px;
+
+  list-style: none;
+  background-color: rgba(var(--cor-roxo), 0.5);
+}
+
+.client-page-dark .container .table .content .title ul {
+  border: 1px solid rgba(var(--cor-rosa), 1);
+  background-color: rgba(var(--cor-rosa), 0.3);
+}
+
+.client-page .container .table .content .title ul li {
+  display: flex;
+  justify-content: center;
+
+  width: 16.66%;
+
+  font-family: "fonte";
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.client-page-dark .container .table .content .title ul li {
+  color: rgba(var(--cor-branco), 0.8);
+}
+
+.client-page .container .table .content .body {
+  height: calc(100% - 40px);
+}
+
+.client-page .container .table .content .body .line {
+  display: flex;
+  height: 10%;
+  cursor: pointer;
+}
+
+.client-page-dark .container .table .content .body .line {
+  background-color: rgba(var(--cor-rosa), 0.05);
+  color: rgba(var(--cor-branco), 1);
+}
+
+.client-page .container .table .content .body .line:hover {
+  background-color: rgba(var(--cor-roxo), 0.2);
+}
+
+.client-page-dark .container .table .content .body .line:hover {
+  background-color: rgba(var(--cor-rosa), 0.2);
+}
+
+.client-page .container .table .content .body .line p {
+  display: flex;
+  align-items: center;
+
+  width: 16.66%;
+  height: 100%;
+  padding-left: 10px;
+
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.client-page-dark .container .table .content .body .line p {
+  border-right: 1px solid rgba(var(--cor-rosa), 1);
+  border-bottom: 1px solid rgba(var(--cor-rosa), 1);
+}
