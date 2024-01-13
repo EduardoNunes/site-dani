@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import BalancaRosaFoto from "../../assets/balanca-rosa.jpg";
 import JusticaRoxoFoto from "../../assets/martelo-ouro.jpg";
 import olhoAberto from "../../assets/olho-aberto.png";
@@ -6,7 +7,6 @@ import olhoFechado from "../../assets/olho-fechado.png";
 import { useFontSize } from "../../context/FontSizeContext";
 import { useTheme } from "../../context/ThemeContext";
 import "./login.css";
-import { Link, useNavigate } from "react-router-dom";
 
 function Login() {
   const { theme } = useTheme();
@@ -16,6 +16,7 @@ function Login() {
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(olhoFechado);
   const navigate = useNavigate();
+
 
   function handleSubmit(event) {
     event.preventDefault();
