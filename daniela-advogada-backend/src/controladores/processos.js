@@ -19,12 +19,29 @@ const obterProcesso = (req, res) => {
 };
 
 const cadastrarProcesso = (req, res) => {
-  const { titulo, vara } = req.body;
+  const {
+    autor,
+    reu,
+    numeroProcesso,
+    vara,
+    juiz,
+    comarca,
+    dataEntrada,
+    atualizado,
+    info,
+  } = req.body;
 
   const processo = {
     id: identificadorProcesso++,
-    titulo,
+    autor,
+    reu,
+    numeroProcesso,
     vara,
+    juiz,
+    comarca,
+    dataEntrada,
+    atualizado,
+    info,
   };
 
   processos.push(processo);
@@ -34,7 +51,17 @@ const cadastrarProcesso = (req, res) => {
 
 const atualizarProcesso = (req, res) => {
   const { id } = req.params;
-  const { titulo, vara } = req.body;
+  const {
+    autor,
+    reu,
+    numeroProcesso,
+    vara,
+    juiz,
+    comarca,
+    dataEntrada,
+    atualizado,
+    info,
+  } = req.body;
 
   const processo = processos.find((processo) => {
     return processo.id === Number(id);
@@ -44,8 +71,15 @@ const atualizarProcesso = (req, res) => {
     return res.status(404).json({ mensagem: "processo não encontrado" });
   }
 
-  processo.titulo = titulo;
-  processo.vara = vara;
+    processo.autor = autor,
+    processo.reu = reu,
+    processo.numeroProcesso = numeroProcesso,
+    processo.vara = vara,
+    processo.juiz = juiz,
+    processo.comarca = comarca,
+    processo.dataEntrada = dataEntrada,
+    processo.atualizado = atualizado,
+    processo.info = info
 
   return res.status(201).json(processos);
 };

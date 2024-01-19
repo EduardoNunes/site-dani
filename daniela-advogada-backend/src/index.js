@@ -1,5 +1,6 @@
 const express = require("express");
 const rotas = require("./rotas");
+
 const validaSenha = require("./intermediarios");
 const cors = require("cors");
 

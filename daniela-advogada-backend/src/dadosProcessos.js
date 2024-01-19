@@ -1,6 +1,8 @@
 processos = [
+  (identificadorProcesso = 4),
   {
-    autor:"1Eduardo Lago Nunes", 
+    id: 0,
+    autor: "Eduardo Lago Nunes",
     reu: "Oi telefonia móvel",
     numeroProcesso: "00032535-23.2020.8.05.0001",
     vara: "15ª VS JE do consumidor",
@@ -11,7 +13,8 @@ processos = [
     info: "Processo finalizado, transitado em julgado, habilitado na recuperação judicial. Acompanhando.",
   },
   {
-    autor:"2Daniela Lago Nunes", 
+    id: 1,
+    autor: "Daniela Lago Nunes",
     reu: "Oi telefonia móvel",
     numeroProcesso: "00032535-23.2020.8.05.0001",
     vara: "15ª VS JE do consumidor",
@@ -22,7 +25,8 @@ processos = [
     info: "Processo finalizado, transitado em julgado, habilitado na recuperação judicial. Acompanhando.",
   },
   {
-    autor:"3Debora Lago Nunes", 
+    id: 2,
+    autor: "Debora Lago Nunes",
     reu: "Oi telefonia móvel",
     numeroProcesso: "00032535-23.2020.8.05.0001",
     vara: "15ª VS JE do consumidor",
@@ -30,7 +34,8 @@ processos = [
     comarca: "Salvador Bahia",
     dataEntrada: "01/08/2020",
     atualizado: "25/12/2023",
-    info: "Processo finalizado, transitado em julgado, habilitado na recuperação judicial. Acompanhando. Processo finalizado, transitado em julgado, habilitado na recuperação judicial. Acompanhando. Processo finalizado, transitado em julgado, habilitado na recuperação judicial. Acompanhando.",
+    info: "Processo finalizado, transitado em julgado, habilitado na recuperação judicial. Acompanhando.",
   },
 ];
+
 module.exports = { processos };
