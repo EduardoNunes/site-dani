@@ -31,14 +31,18 @@ const obterCliente = async (req, res) => {
 const cadastrarCliente = async (req, res) => {
   const { nome, email, senha, tipoCadastro } = req.body;
 
-  await pool.query(
-    "insert into usuarios (nome, email, senha, cadastro) values ($1, $2, $3, $4)",
-    [nome, email, senha, tipoCadastro]
-  );
+  try {
+    await pool.query(
+      "insert into usuarios (nome, email, senha, cadastro) values ($1, $2, $3, $4)",
+      [nome, email, senha, tipoCadastro]
+    );
 
-  const resultado = await pool.query("select * from usuarios");
+    const resultado = await pool.query("select * from usuarios");
 
-  return res.status(201).json(resultado.rows);
+    return res.status(201).json(resultado.rows);
+  } catch (error) {
+    console.log(error.message);
+  }
 };
 
 const atualizarCliente = async (req, res) => {
