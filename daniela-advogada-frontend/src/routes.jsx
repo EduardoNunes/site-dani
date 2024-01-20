@@ -4,6 +4,7 @@ import Login from "./pages/Login/Login";
 import Header from "./components/Header/Header";
 import PreHeader from "./components/Pre-header/PreHeader";
 import ClientPage from "./pages/ClientPage/ClientPage";
+import Register from "./pages/Register/Register"
 
 function ProtectedRoutes({ redirectTo }) {
   const isAuthenticated = true;
@@ -37,6 +38,18 @@ function MainRoutes() {
           }
         >
           <Route path="" element={<Login />} />
+        </Route>
+
+        <Route
+          path="/register"
+          element={
+            <>
+              <PreHeader />
+              <Header />
+            </>
+          }
+        >
+          <Route path="" element={<Register />} />
         </Route>
 
         <Route

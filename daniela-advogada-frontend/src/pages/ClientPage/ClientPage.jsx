@@ -6,7 +6,7 @@ import ProcessDetails from "../../modals/ProcessDetails";
 import "./client-page.css";
 import { useModal } from "../../context/ModalsContext";
 import { useEffect } from "react";
-import axios from "axios";
+import api from "../../services/api";
 
 function ClientPage() {
   const { theme } = useTheme();
@@ -14,16 +14,18 @@ function ClientPage() {
     useModal();
   const [dataProcess, setDataProcess] = useState();
 
+  async function clientProcess() {
+    try {
+      const response = await api.get("/processos");
+      setDataProcess(response.data)
+      console.log(response.data)
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   useEffect(() => {
-    axios
-      .get("http://localhost:3001/processos")
-      .then((response) => {
-        setDataProcess(response.data);
-        console.log(dataProcess);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    clientProcess();
   }, []);
 
   return (
@@ -48,9 +50,10 @@ function ClientPage() {
               </ul>
             </div>
             <div className="body">
-              {dataProcess === 0 ? (
+              {dataProcess && dataProcess.length === 0 ? (
                 <span>Não encontramos processos para esta conta</span>
               ) : (
+                dataProcess &&
                 dataProcess.map((processo, index) => (
                   <div
                     key={index}
@@ -59,11 +62,11 @@ function ClientPage() {
                   >
                     <p title={processo.autor}>{processo.autor}</p>
                     <p title={processo.reu}>{processo.reu}</p>
-                    <p title={processo.numeroProcesso}>
-                      {processo.numeroProcesso}
+                    <p title={processo.numero}>
+                      {processo.numero}
                     </p>
                     <p title={processo.vara}>{processo.vara}</p>
-                    <p title={processo.dataEntrada}>{processo.dataEntrada}</p>
+                    <p title={processo.data_entrada}>{processo.data_entrada}</p>
                     <p title={processo.atualizado}>{processo.atualizado}</p>
                   </div>
                 ))

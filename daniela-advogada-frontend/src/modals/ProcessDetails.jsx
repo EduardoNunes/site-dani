@@ -10,13 +10,13 @@ function ProcessDetails({ processo }) {
   const {
     autor,
     reu,
-    numeroProcesso,
+    numero,
     vara,
     juiz,
     comarca,
-    dataEntrada,
+    data_entrada,
     atualizado,
-    info,
+    infos,
   } = processo;
 
   return (
@@ -26,6 +26,7 @@ function ProcessDetails({ processo }) {
           <img
             src={theme === "light" ? XPreto : XBranco}
             title="Sair"
+            alt=""
             onClick={() => handleOpenProcessDetails(false)}
           />
           <h3>Detalhes do processo</h3>
@@ -35,7 +36,7 @@ function ProcessDetails({ processo }) {
             <li>Reu:</li>
             <p>{reu}</p>
             <li>Número do processo:</li>
-            <p>{numeroProcesso}</p>
+            <p>{numero}</p>
             <li>Vara:</li>
             <p>{vara}</p>
             <li>Juiz:</li>
@@ -43,11 +44,11 @@ function ProcessDetails({ processo }) {
             <li>Comarca:</li>
             <p>{comarca}</p>
             <li>Data de entrada:</li>
-            <p>{dataEntrada}</p>
+            <p>{data_entrada}</p>
             <li>Atualizado em:</li>
             <p>{atualizado}</p>
             <li>Informações:</li>
-            <p className="infos">{info}</p>
+            <p className="infos">{infos}</p>
           </ul>
         </div>
       </div>
