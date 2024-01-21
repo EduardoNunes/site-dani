@@ -1,4 +1,4 @@
-let pool = require("../conexao");
+const pool = require("../conexao");
 
 const listarProcessos = async (req, res) => {
   try {

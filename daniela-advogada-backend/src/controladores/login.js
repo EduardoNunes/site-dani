@@ -28,7 +28,7 @@ const login = async (req, res) => {
       });
     }
 
-    const token = jwt.sign({ id: usuario.rows[0].id }, senhaJwt, {
+    const token = jwt.sign({ id: usuario.rows[0].id, cadastro: usuario.rows[0].cadastro }, senhaJwt, {
       expiresIn: "1h",
     });
 

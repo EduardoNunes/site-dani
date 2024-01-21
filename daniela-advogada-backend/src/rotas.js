@@ -1,6 +1,7 @@
 const express = require("express");
 const clientes = require("./controladores/clientes");
 const processos = require("./controladores/processos");
+const processosClientes = require("./controladores/processosClientes")
 const login = require("./controladores/login");
 
 const rotas = express();
@@ -18,5 +19,7 @@ rotas.get("/processos/:id", processos.obterProcesso);
 rotas.post("/processos", processos.cadastrarProcesso);
 rotas.put("/processos/:id", processos.atualizarProcesso);
 rotas.delete("/processos/:id", processos.deletarProcesso);
+
+rotas.get("/processosClientes", processosClientes.listarProcessos);
 
 module.exports = rotas;
