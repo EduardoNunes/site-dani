@@ -7,7 +7,6 @@ import { useFontSize } from "../../context/FontSizeContext";
 import { useScroll } from "../../context/ScrollContext";
 import { useTheme } from "../../context/ThemeContext";
 import "./pre-header.css";
-import { Outlet } from "react-router-dom";
 
 function PreHeader() {
   const { theme, toggleTheme } = useTheme();
@@ -42,9 +41,6 @@ function PreHeader() {
           </div>
         </div>
       </div>
-{/*       <div className="outlet">
-        <Outlet />
-      </div> */}
     </div>
   );
 }

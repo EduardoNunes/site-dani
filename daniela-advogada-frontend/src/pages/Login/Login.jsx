@@ -7,10 +7,13 @@ import olhoFechado from "../../assets/olho-fechado.png";
 import { useFontSize } from "../../context/FontSizeContext";
 import { useTheme } from "../../context/ThemeContext";
 import api from "../../services/api";
+import TipoCadastro from "../../components/TipoCadastro/TipoCadastro";
 import "./login.css";
+import { useTipoCadastroContext } from "../../context/TipoCadastroContext";
 
 function Login() {
   const { theme } = useTheme();
+  const { selectedOption } = useTipoCadastroContext();
   const { fontSizeModify } = useFontSize();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -34,13 +37,12 @@ function Login() {
         setError("A senha deve ter no mínimo 8 caracteres");
         return;
       }
-      const response = await api.post("/login", {
+
+      await api.post("/login", {
         email: email,
         senha: password,
-        /* tipoCadastro: selectedOption, */
+        tipoCadastro: selectedOption,
       });
-
-      navigate("/client");
     } catch (error) {
       console.error("Erro na solicitação:", error.message);
       setError("Ocorreu um erro ao processar a solicitação");
@@ -72,7 +74,7 @@ function Login() {
         <form
           onSubmit={handleSubmit}
           style={{
-            height: `calc(300px + ${fontSizeModify * 10}px)`,
+            height: `calc(450px + ${fontSizeModify * 10}px)`,
           }}
         >
           <h2 style={{ fontSize: `calc(26px + ${fontSizeModify}px)` }}>
@@ -109,6 +111,7 @@ function Login() {
               <div className="olho-password">
                 <img
                   src={showPassword}
+                  alt=""
                   style={{
                     width: `calc(20px + ${fontSizeModify * 2}px)`,
                   }}
@@ -117,6 +120,10 @@ function Login() {
               </div>
             </div>
           </div>
+
+          <TipoCadastro 
+            titulo = "Quero acessar como:"
+          />
 
           {error && <span>{error}</span>}
           <div>

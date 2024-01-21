@@ -1,14 +1,15 @@
 const express = require("express");
 const clientes = require("./controladores/clientes");
 const processos = require("./controladores/processos");
+const login = require("./controladores/login");
 
 const rotas = express();
 
-rotas.get("clientes");
+rotas.post("/login", login.login);
 
+rotas.post("/clientes", clientes.cadastrarCliente);
 rotas.get("/clientes", clientes.listarClientes);
 rotas.get("/clientes/:id", clientes.obterCliente);
-rotas.post("/clientes", clientes.cadastrarCliente);
 rotas.put("/clientes/:id", clientes.atualizarCliente);
 rotas.delete("/clientes/:id", clientes.deletarCliente);
 

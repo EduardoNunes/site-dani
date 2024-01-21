@@ -1,4 +1,5 @@
 const pool = require("../conexao");
+const bcrypt = require("bcrypt")
 
 const listarClientes = async (req, res) => {
   try {
@@ -32,9 +33,11 @@ const cadastrarCliente = async (req, res) => {
   const { nome, email, senha, tipoCadastro } = req.body;
 
   try {
+    const senhaCriptografada = await bcrypt.hash(senha, 10)
+    
     await pool.query(
-      "insert into usuarios (nome, email, senha, cadastro) values ($1, $2, $3, $4)",
-      [nome, email, senha, tipoCadastro]
+      "insert into usuarios (nome, email, senha, cadastro) values ($1, $2, $3, $4) returning *",
+      [nome, email, senhaCriptografada, tipoCadastro]
     );
 
     const resultado = await pool.query("select * from usuarios");

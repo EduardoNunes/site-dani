@@ -6,20 +6,26 @@ import { ThemeProvider } from "./context/ThemeContext";
 import MainRoutes from "./routes";
 import { BrowserRouter } from "react-router-dom";
 import { ModalProvider } from "./context/ModalsContext";
+import GlobalContextProvider from "./context/GlobalContextProvider";
+import { TipoCadastroProvider } from "./context/TipoCadastroContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <ThemeProvider>
-      <FontSizeProvider>
-        <ScrollProvider>
-          <BrowserRouter>
-            <ModalProvider>
-              <MainRoutes />
-            </ModalProvider>
-          </BrowserRouter>
-        </ScrollProvider>
-      </FontSizeProvider>
-    </ThemeProvider>
+    <GlobalContextProvider>
+      <ThemeProvider>
+        <FontSizeProvider>
+          <ScrollProvider>
+            <TipoCadastroProvider>
+              <BrowserRouter>
+                <ModalProvider>
+                  <MainRoutes />
+                </ModalProvider>
+              </BrowserRouter>
+            </TipoCadastroProvider>
+          </ScrollProvider>
+        </FontSizeProvider>
+      </ThemeProvider>
+    </GlobalContextProvider>
   </React.StrictMode>
 );

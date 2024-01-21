@@ -18,7 +18,7 @@ function ClientPage() {
     try {
       const response = await api.get("/processos");
       setDataProcess(response.data)
-      console.log(response.data)
+      
     } catch (error) {
       console.error(error);
     }

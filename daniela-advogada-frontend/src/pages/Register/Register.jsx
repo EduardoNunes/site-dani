@@ -8,14 +8,16 @@ import { useFontSize } from "../../context/FontSizeContext";
 import { useTheme } from "../../context/ThemeContext";
 import api from "../../services/api";
 import "./register.css";
+import TipoCadastro from "../../components/TipoCadastro/TipoCadastro";
+import { useTipoCadastroContext } from "../../context/TipoCadastroContext";
 
 function RegisterPage() {
   const { theme } = useTheme();
+  const { selectedOption, setSlecetedOption } = useTipoCadastroContext();
   const { fontSizeModify } = useFontSize();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [selectedOption, setSlecetedOption] = useState("");
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(olhoFechado);
   const navigate = useNavigate();
@@ -50,7 +52,7 @@ function RegisterPage() {
         tipoCadastro: selectedOption,
       });
 
-      navigate("/login")
+      navigate("/login");
     } catch (error) {
       console.error("Erro na solicitação:", error.message);
       setError("Ocorreu um erro ao processar a solicitação");
@@ -137,41 +139,11 @@ function RegisterPage() {
                 />
               </div>
             </div>
-
-            <div className="tipo-cadastro">
-              <h4>Quero me cadastrar como:</h4>
-              <div className="cliente">
-                <input
-                  type="radio"
-                  name="cliente"
-                  value="cliente"
-                  checked={selectedOption === "cliente"}
-                  onChange={() => setSlecetedOption("cliente")}
-                />
-                <label>Cliente</label>
-              </div>
-              <div className="estudante">
-                <input
-                  type="radio"
-                  name="student"
-                  value="student"
-                  checked={selectedOption === "estudante"}
-                  onChange={() => setSlecetedOption("estudante")}
-                />
-                <label>Estudante</label>
-              </div>
-              <div className="escritorio">
-                <input
-                  type="radio"
-                  name="escritorio"
-                  value="escritorio"
-                  checked={selectedOption === "escritorio"}
-                  onChange={() => setSlecetedOption("escritorio")}
-                />
-                <label>Escritório</label>
-              </div>
-            </div>
           </div>
+
+          <TipoCadastro 
+            titulo = "Quero me cadastrar como:"
+          />
 
           {error && <span>{error}</span>}
           <div>
