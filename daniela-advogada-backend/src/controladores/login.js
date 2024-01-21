@@ -1,5 +1,7 @@
 const pool = require("../conexao");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const senhaJwt = require("../senhaJwt");
 
 const login = async (req, res) => {
   const { email, senha, tipoCadastro } = req.body;
@@ -21,10 +23,18 @@ const login = async (req, res) => {
     }
 
     if (usuario.rows[0].cadastro !== tipoCadastro) {
-        return res.status(400).json({ mensagem: `Usuário não encontrado na categoria ${tipoCadastro}`})
+      return res.status(400).json({
+        mensagem: `Usuário não encontrado na categoria ${tipoCadastro}`,
+      });
     }
 
-    return res.json({ mensagem: "Usuário autenticado." });
+    const token = jwt.sign({ id: usuario.rows[0].id }, senhaJwt, {
+      expiresIn: "1h",
+    });
+
+    const { senha: _, ...usuarioLogado } = usuario.rows[0];
+
+    return res.json({ usuario: usuarioLogado, token });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ mensagem: "Erro interno do servidor" });
