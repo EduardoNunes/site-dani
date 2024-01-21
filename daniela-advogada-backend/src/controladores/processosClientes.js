@@ -3,16 +3,15 @@ const jwt = require("jsonwebtoken");
 const senhaJwt = require("../senhaJwt");
 
 const listarProcessos = async (req, res) => {
-  const { token } = req.body;
+  const { authorization } = req.headers;
 
-  if (!token) {
+  if (!authorization) {
     return res.status(401).json({ mensagem: "Não autorizado." });
   }
+  const token = authorization.split(" ")[1];
 
   try {
     const tokenCliente = jwt.verify(token, senhaJwt);
-
-    console.log(tokenCliente);
 
     const resultado = await pool.query("select * from processos");
 
