@@ -78,7 +78,7 @@ function Login() {
     if (getItem("token")) {
       navigate("/client")
     }
-  }, )
+  }, [])
 
   return (
     <div className={`login login-${theme}`}>

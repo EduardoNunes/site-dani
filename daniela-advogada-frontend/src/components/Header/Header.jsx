@@ -6,11 +6,14 @@ import { useScroll } from "../../context/ScrollContext";
 import { useTheme } from "../../context/ThemeContext";
 import { removeItem, getItem } from "../../utils/storage";
 import "./header.css";
+import sairBranco from "../../assets/sair-branco.png"
+import sairPreto from "../../assets/sair-preto.png"
 
-function Header({ userName, sairIcone }) {
+function Header() {
   const { theme } = useTheme();
   const { scroll } = useScroll();
   const { fontSizeModify } = useFontSize();
+  const userName = getItem("usuario");
   const navigate = useNavigate();
 
   let headerMove = "";
@@ -71,7 +74,7 @@ function Header({ userName, sairIcone }) {
                 className={`area-cliente area-cliente-${theme}`}
                 style={{ fontSize: `calc(20px + ${fontSizeModify}px)` }}
               >
-                <p>{userName}</p>
+                <p>{getItem("id") !== null ? getItem("usuario").split(" ")[0] : "Área do cliente"}</p>
               </button>
             </Link>
             {getItem("id") !== null ? (
@@ -80,7 +83,7 @@ function Header({ userName, sairIcone }) {
                 title="Sair"
                 onClick={() => handleClickLogOut()}
               >
-                <img src={sairIcone} alt="exit icon" />
+                <img src={theme === "dark" ? sairBranco : sairPreto} alt="exit icon" />
               </button>
             ) : (
               ""

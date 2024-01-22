@@ -1,14 +1,12 @@
-import { Outlet, Routes, Route, Navigate } from "react-router-dom";
+import { Navigate, Outlet, Route, Routes } from "react-router-dom";
 import App from "./App";
-import Login from "./pages/Login/Login";
 import Header from "./components/Header/Header";
 import PreHeader from "./components/Pre-header/PreHeader";
 import ClientPage from "./pages/ClientPage/ClientPage";
+import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
+import OfficePage from "./pages/office/OfficePage";
 import { getItem } from "./utils/storage";
-import sairPreto from "./assets/sair-preto.png";
-import sairBranco from "./assets/sair-branco.png";
-import { useTheme } from "./context/ThemeContext";
 
 function ProtectedRoutes({ redirectTo }) {
   const isAuthenticated = getItem("token");
@@ -16,9 +14,6 @@ function ProtectedRoutes({ redirectTo }) {
 }
 
 function MainRoutes() {
-  const userName = getItem("usuario");
-  const { theme } = useTheme();
-
   return (
     <Routes>
       <Route
@@ -26,7 +21,7 @@ function MainRoutes() {
         element={
           <>
             <PreHeader />
-            <Header userName="Área do cliente" />
+            <Header />
           </>
         }
       >
@@ -38,7 +33,7 @@ function MainRoutes() {
         element={
           <>
             <PreHeader />
-            <Header userName="Área do cliente" />
+            <Header />
           </>
         }
       >
@@ -50,7 +45,7 @@ function MainRoutes() {
         element={
           <>
             <PreHeader />
-            <Header userName="Área do cliente" />
+            <Header />
           </>
         }
       >
@@ -62,7 +57,7 @@ function MainRoutes() {
         element={
           <>
             <PreHeader />
-            <Header userName="Área do cliente" />
+            <Header />
           </>
         }
       >
@@ -74,16 +69,24 @@ function MainRoutes() {
           element={
             <>
               <PreHeader />
-              <Header
-                userName={userName}
-                sairIcone={
-                  theme === "light" ? sairPreto : sairBranco
-                }
-              />
+              <Header />
             </>
           }
         >
           <Route path="" element={<ClientPage />} />
+        </Route>
+      </Route>
+      <Route element={<ProtectedRoutes redirectTo="/home" />}>
+        <Route
+          path="/office"
+          element={
+            <>
+              <PreHeader />
+              <Header />
+            </>
+          }
+        >
+          <Route path="" element={<OfficePage />} />
         </Route>
       </Route>
     </Routes>
