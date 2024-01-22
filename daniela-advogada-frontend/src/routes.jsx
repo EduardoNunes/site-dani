@@ -6,14 +6,19 @@ import PreHeader from "./components/Pre-header/PreHeader";
 import ClientPage from "./pages/ClientPage/ClientPage";
 import Register from "./pages/Register/Register";
 import { getItem } from "./utils/storage";
+import sairPreto from "./assets/sair-preto.png";
+import sairBranco from "./assets/sair-branco.png";
+import { useTheme } from "./context/ThemeContext";
 
 function ProtectedRoutes({ redirectTo }) {
   const isAuthenticated = getItem("token");
-
   return isAuthenticated ? <Outlet /> : <Navigate to={redirectTo} />;
 }
 
 function MainRoutes() {
+  const userName = getItem("usuario");
+  const { theme } = useTheme();
+
   return (
     <Routes>
       <Route
@@ -21,7 +26,19 @@ function MainRoutes() {
         element={
           <>
             <PreHeader />
-            <Header />
+            <Header userName="Área do cliente" />
+          </>
+        }
+      >
+        <Route path="" element={<App />} />
+      </Route>
+
+      <Route
+        path="/"
+        element={
+          <>
+            <PreHeader />
+            <Header userName="Área do cliente" />
           </>
         }
       >
@@ -33,7 +50,7 @@ function MainRoutes() {
         element={
           <>
             <PreHeader />
-            <Header />
+            <Header userName="Área do cliente" />
           </>
         }
       >
@@ -45,7 +62,7 @@ function MainRoutes() {
         element={
           <>
             <PreHeader />
-            <Header />
+            <Header userName="Área do cliente" />
           </>
         }
       >
@@ -57,7 +74,12 @@ function MainRoutes() {
           element={
             <>
               <PreHeader />
-              <Header />
+              <Header
+                userName={userName}
+                sairIcone={
+                  theme === "light" ? sairPreto : sairBranco
+                }
+              />
             </>
           }
         >

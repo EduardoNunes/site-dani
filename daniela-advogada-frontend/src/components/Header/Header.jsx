@@ -1,15 +1,17 @@
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import LogoReduzidaBranco from "../../assets/logo-reduzida-branco.png";
 import LogoReduzidaColor from "../../assets/logo-reduzida-color-120px.png";
 import { useFontSize } from "../../context/FontSizeContext";
 import { useScroll } from "../../context/ScrollContext";
 import { useTheme } from "../../context/ThemeContext";
+import { removeItem, getItem } from "../../utils/storage";
 import "./header.css";
 
-function Header() {
+function Header({ userName, sairIcone }) {
   const { theme } = useTheme();
   const { scroll } = useScroll();
   const { fontSizeModify } = useFontSize();
+  const navigate = useNavigate();
 
   let headerMove = "";
   let logoSmall = "";
@@ -20,6 +22,15 @@ function Header() {
   } else {
     headerMove = scroll === 0 ? "" : "header-move-dark";
     logoSmall = scroll === 0 ? "" : "logo-small";
+  }
+
+  function handleClickLogOut() {
+    removeItem("usuario");
+    removeItem("token");
+    removeItem("id");
+    removeItem("tipo cadastro");
+
+    navigate("/");
   }
 
   return (
@@ -54,15 +65,27 @@ function Header() {
               </li>
             </ul>
           </nav>
-
-          <Link to="/login" className="link">
-            <button
-              className={`area-cliente area-cliente-${theme}`}
-              style={{ fontSize: `calc(20px + ${fontSizeModify}px)` }}
-            >
-              <p>Área do cliente</p>
-            </button>
-          </Link>
+          <div className="infos-client">
+            <Link to="/login" className="link">
+              <button
+                className={`area-cliente area-cliente-${theme}`}
+                style={{ fontSize: `calc(20px + ${fontSizeModify}px)` }}
+              >
+                <p>{userName}</p>
+              </button>
+            </Link>
+            {getItem("id") !== null ? (
+              <button
+                className="button-2"
+                title="Sair"
+                onClick={() => handleClickLogOut()}
+              >
+                <img src={sairIcone} alt="exit icon" />
+              </button>
+            ) : (
+              ""
+            )}
+          </div>
         </div>
       </div>
       <div className="content-page">

@@ -31,7 +31,7 @@ function ClientPage() {
 
   useEffect(() => {
     clientProcess();
-  }, );
+  }, []);
 
   return (
     <div className={`client-page client-page-${theme}`}>
