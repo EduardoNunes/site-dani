@@ -103,5 +103,5 @@ module.exports = {
   obterCliente,
   cadastrarCliente,
   atualizarCliente,
-  deletarCliente,
+  deletarCliente
 };

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import BalancaRosaFoto from "../../assets/balanca-rosa.jpg";
 import JusticaRoxoFoto from "../../assets/martelo-ouro.jpg";
@@ -10,6 +10,7 @@ import api from "../../services/api";
 import "./register.css";
 import TipoCadastro from "../../components/TipoCadastro/TipoCadastro";
 import { useTipoCadastroContext } from "../../context/TipoCadastroContext";
+import { getItem } from "../../utils/storage";
 
 function RegisterPage() {
   const { theme } = useTheme();
@@ -70,6 +71,12 @@ function RegisterPage() {
   function handleClickShowPassword() {
     setShowPassword(showPassword === olhoAberto ? olhoFechado : olhoAberto);
   }
+
+  useEffect(() => {
+    if (getItem("token")) {
+      navigate("/client")
+    }
+  }, )
 
   return (
     <div className={`register register-${theme}`}>

@@ -1,18 +1,22 @@
 const express = require("express");
 const clientes = require("./controladores/clientes");
 const processosEscritorio = require("./controladores/processosEscritorio");
-const processosClientes = require("./controladores/processosClientes")
+const processosClientes = require("./controladores/processosClientes");
 const login = require("./controladores/login");
+const verificarUsuarioLogado = require("./intermediarios/autenticacao");
 
 const rotas = express();
 
-rotas.post("/login", login.login);
 
+rotas.post("/login", login.login);
 rotas.post("/clientes", clientes.cadastrarCliente);
-rotas.get("/clientes", clientes.listarClientes);
-rotas.get("/clientes/:id", clientes.obterCliente);
-rotas.put("/clientes/:id", clientes.atualizarCliente);
-rotas.delete("/clientes/:id", clientes.deletarCliente);
+
+rotas.use(verificarUsuarioLogado)
+
+rotas.get("/clientesEscritorio", clientes.listarClientes);
+rotas.get("/clientesEscritorio/:id", clientes.obterCliente);
+rotas.put("/clientesEscritorio/:id", clientes.atualizarCliente);
+rotas.delete("/clientesEscritorio/:id", clientes.deletarCliente);
 
 rotas.get("/processosEscritorio", processosEscritorio.listarProcessos);
 rotas.get("/processosEscritorio/:id", processosEscritorio.obterProcesso);

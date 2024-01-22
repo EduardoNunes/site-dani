@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import BalancaRosaFoto from "../../assets/balanca-rosa.jpg";
 import JusticaRoxoFoto from "../../assets/martelo-ouro.jpg";
@@ -10,6 +10,7 @@ import api from "../../services/api";
 import TipoCadastro from "../../components/TipoCadastro/TipoCadastro";
 import "./login.css";
 import { useTipoCadastroContext } from "../../context/TipoCadastroContext";
+import { getItem, setItem } from "../../utils/storage";
 
 function Login() {
   const { theme } = useTheme();
@@ -38,17 +39,27 @@ function Login() {
         return;
       }
 
-      await api.post("/login", {
+      const response = await api.post("/login", {
         email: email,
         senha: password,
         tipoCadastro: selectedOption,
       });
+
+      if (response.status > 204) {
+        return;
+      }
+
+      setItem("token", response.data.token);
+      setItem("usuario", response.data.usuario.nome);
+      setItem("id", response.data.usuario.id);
+      setItem("tipo cadastro", response.data.usuario.cadastro);
+
+      navigate("/client");
     } catch (error) {
       console.error("Erro na solicitação:", error.message);
-      setError("Ocorreu um erro ao processar a solicitação");
+      setError("Erro ao processar a solicitação");
     }
 
-    navigate("/client");
     setEmail("");
     setPassword("");
   }
@@ -62,6 +73,12 @@ function Login() {
   function handleClickShowPassword() {
     setShowPassword(showPassword === olhoAberto ? olhoFechado : olhoAberto);
   }
+
+  useEffect(() => {
+    if (getItem("token")) {
+      navigate("/client")
+    }
+  }, )
 
   return (
     <div className={`login login-${theme}`}>
@@ -121,9 +138,7 @@ function Login() {
             </div>
           </div>
 
-          <TipoCadastro 
-            titulo = "Quero acessar como:"
-          />
+          <TipoCadastro titulo="Quero acessar como:" />
 
           {error && <span>{error}</span>}
           <div>

@@ -7,6 +7,7 @@ import "./client-page.css";
 import { useModal } from "../../context/ModalsContext";
 import { useEffect } from "react";
 import api from "../../services/api";
+import { getItem } from "../../utils/storage";
 
 function ClientPage() {
   const { theme } = useTheme();
@@ -14,11 +15,15 @@ function ClientPage() {
     useModal();
   const [dataProcess, setDataProcess] = useState();
 
+  const token = getItem("token");
+
   async function clientProcess() {
     try {
-      const response = await api.get("/processos");
-      setDataProcess(response.data)
+      const response = await api.get("/processosClientes", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       
+      setDataProcess(response.data);
     } catch (error) {
       console.error(error);
     }
@@ -26,7 +31,7 @@ function ClientPage() {
 
   useEffect(() => {
     clientProcess();
-  }, []);
+  }, );
 
   return (
     <div className={`client-page client-page-${theme}`}>
@@ -62,9 +67,7 @@ function ClientPage() {
                   >
                     <p title={processo.autor}>{processo.autor}</p>
                     <p title={processo.reu}>{processo.reu}</p>
-                    <p title={processo.numero}>
-                      {processo.numero}
-                    </p>
+                    <p title={processo.numero}>{processo.numero}</p>
                     <p title={processo.vara}>{processo.vara}</p>
                     <p title={processo.data_entrada}>{processo.data_entrada}</p>
                     <p title={processo.atualizado}>{processo.atualizado}</p>

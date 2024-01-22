@@ -4,10 +4,11 @@ import Login from "./pages/Login/Login";
 import Header from "./components/Header/Header";
 import PreHeader from "./components/Pre-header/PreHeader";
 import ClientPage from "./pages/ClientPage/ClientPage";
-import Register from "./pages/Register/Register"
+import Register from "./pages/Register/Register";
+import { getItem } from "./utils/storage";
 
 function ProtectedRoutes({ redirectTo }) {
-  const isAuthenticated = true;
+  const isAuthenticated = getItem("token");
 
   return isAuthenticated ? <Outlet /> : <Navigate to={redirectTo} />;
 }
@@ -15,43 +16,42 @@ function ProtectedRoutes({ redirectTo }) {
 function MainRoutes() {
   return (
     <Routes>
+      <Route
+        path="/home"
+        element={
+          <>
+            <PreHeader />
+            <Header />
+          </>
+        }
+      >
+        <Route path="" element={<App />} />
+      </Route>
+
+      <Route
+        path="/login"
+        element={
+          <>
+            <PreHeader />
+            <Header />
+          </>
+        }
+      >
+        <Route path="" element={<Login />} />
+      </Route>
+
+      <Route
+        path="/register"
+        element={
+          <>
+            <PreHeader />
+            <Header />
+          </>
+        }
+      >
+        <Route path="" element={<Register />} />
+      </Route>
       <Route element={<ProtectedRoutes redirectTo="/login" />}>
-        <Route
-          path="/home"
-          element={
-            <>
-              <PreHeader />
-              <Header />
-            </>
-          }
-        >
-          <Route path="" element={<App />} />
-        </Route>
-
-        <Route
-          path="/login"
-          element={
-            <>
-              <PreHeader />
-              <Header />
-            </>
-          }
-        >
-          <Route path="" element={<Login />} />
-        </Route>
-
-        <Route
-          path="/register"
-          element={
-            <>
-              <PreHeader />
-              <Header />
-            </>
-          }
-        >
-          <Route path="" element={<Register />} />
-        </Route>
-
         <Route
           path="/client"
           element={
