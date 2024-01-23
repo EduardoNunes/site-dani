@@ -13,7 +13,6 @@ function Header() {
   const { theme } = useTheme();
   const { scroll } = useScroll();
   const { fontSizeModify } = useFontSize();
-  const userName = getItem("usuario");
   const navigate = useNavigate();
 
   let headerMove = "";

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import lupa from "../../assets/lupa.png";
 import MarmoreRoxo from "../../assets/marmore-preto-roxo.jpg";
 import MarmoreBranco from "../../assets/textura-marmore.jpg";
 import { useModal } from "../../context/ModalsContext";
@@ -16,12 +17,56 @@ function OfficePage() {
 
   const token = getItem("token");
 
+  async function setSearchAll(event) {
+    const searchTerm = event.toLowerCase();
+
+    if (dataProcess) {
+      if (!searchTerm) {
+        try {
+          const response = await api.get("/processosEscritorio", {
+            headers: { Authorization: `Bearer ${token}` },
+          });
+
+          setDataProcess(response.data);
+        } catch (error) {
+          console.error(error);
+        }
+      } else {
+        const newDataFilter = dataProcess.filter((data) => {
+          const autor = data.autor ? data.autor.toLowerCase() : "";
+          const reu = data.reu ? data.reu.toLowerCase() : "";
+          const numero = data.numero ? data.numero.toLowerCase() : "";
+          const vara = data.vara ? data.vara.toLowerCase() : "";
+          const juiz = data.juiz ? data.juiz.toLowerCase() : "";
+          const comarca = data.comarca ? data.comarca.toLowerCase() : "";
+          const entrada = data.entrada ? data.entrada.toLowerCase() : "";
+          const atualizado = data.atualizado
+            ? data.atualizado.toLowerCase()
+            : "";
+          const term = searchTerm.toLowerCase();
+
+          return (
+            autor.includes(term) ||
+            reu.includes(term) ||
+            numero.includes(term) ||
+            vara.includes(term) ||
+            juiz.includes(term) ||
+            comarca.includes(term) ||
+            entrada.includes(term) ||
+            atualizado.includes(term)
+          );
+        });
+        setDataProcess(newDataFilter);
+      }
+    }
+  }
+
   async function clientProcess() {
     try {
-      const response = await api.get("/processosClientes", {
+      const response = await api.get("/processosEscritorio", {
         headers: { Authorization: `Bearer ${token}` },
       });
-      
+
       setDataProcess(response.data);
     } catch (error) {
       console.error(error);
@@ -41,6 +86,19 @@ function OfficePage() {
         alt={`Banner-${theme}`}
       />
       <div className="container">
+        <div className="tool-bar">
+          <div className="content">
+            <div className="input">
+              <input
+                type="text"
+                placeholder="Buscar"
+                onChange={(event) => setSearchAll(event.target.value)}
+              />
+              <img src={lupa} alt="lupa" />
+            </div>
+          </div>
+        </div>
+
         <div className="table">
           <div className="content">
             <div className="title">
