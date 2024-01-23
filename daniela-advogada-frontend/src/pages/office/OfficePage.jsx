@@ -14,25 +14,35 @@ function OfficePage() {
   const { handleOpenProcessDetails, openProcessDetails, selectedProcess } =
     useModal();
   const [dataProcess, setDataProcess] = useState();
+  const [newDataProcess, setNewDataProcess] = useState();
 
   const token = getItem("token");
 
-  async function setSearchAll(event) {
+  async function clientProcess() {
+    try {
+      const response = await api.get("/processosEscritorio", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      setDataProcess(response.data);
+      setNewDataProcess(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  useEffect(() => {
+    clientProcess();
+  }, []);
+
+  function setSearchAll(event) {
     const searchTerm = event.toLowerCase();
 
     if (dataProcess) {
       if (!searchTerm) {
-        try {
-          const response = await api.get("/processosEscritorio", {
-            headers: { Authorization: `Bearer ${token}` },
-          });
-
-          setDataProcess(response.data);
-        } catch (error) {
-          console.error(error);
-        }
+        setDataProcess(newDataProcess);
       } else {
-        const newDataFilter = dataProcess.filter((data) => {
+        let newDataFilter = newDataProcess.filter((data) => {
           const autor = data.autor ? data.autor.toLowerCase() : "";
           const reu = data.reu ? data.reu.toLowerCase() : "";
           const numero = data.numero ? data.numero.toLowerCase() : "";
@@ -43,39 +53,22 @@ function OfficePage() {
           const atualizado = data.atualizado
             ? data.atualizado.toLowerCase()
             : "";
-          const term = searchTerm.toLowerCase();
 
           return (
-            autor.includes(term) ||
-            reu.includes(term) ||
-            numero.includes(term) ||
-            vara.includes(term) ||
-            juiz.includes(term) ||
-            comarca.includes(term) ||
-            entrada.includes(term) ||
-            atualizado.includes(term)
+            autor.includes(searchTerm) ||
+            reu.includes(searchTerm) ||
+            numero.includes(searchTerm) ||
+            vara.includes(searchTerm) ||
+            juiz.includes(searchTerm) ||
+            comarca.includes(searchTerm) ||
+            entrada.includes(searchTerm) ||
+            atualizado.includes(searchTerm)
           );
         });
         setDataProcess(newDataFilter);
       }
     }
   }
-
-  async function clientProcess() {
-    try {
-      const response = await api.get("/processosEscritorio", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-
-      setDataProcess(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  useEffect(() => {
-    clientProcess();
-  }, []);
 
   return (
     <div className={`office-page office-page-${theme}`}>
