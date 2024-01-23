@@ -81,7 +81,7 @@ function Login() {
   }
 
   useEffect(() => {
-    if (getItem("token") && getItem("tipo cadastro") === "cliente") {
+    if (getItem("token")) {
       navigate("/client")
     }
   }, [])

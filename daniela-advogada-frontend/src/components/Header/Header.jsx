@@ -6,17 +6,31 @@ import { useScroll } from "../../context/ScrollContext";
 import { useTheme } from "../../context/ThemeContext";
 import { removeItem, getItem } from "../../utils/storage";
 import "./header.css";
-import sairBranco from "../../assets/sair-branco.png"
-import sairPreto from "../../assets/sair-preto.png"
+import sairBranco from "../../assets/sair-branco.png";
+import sairPreto from "../../assets/sair-preto.png";
+import { useState } from "react";
 
 function Header() {
   const { theme } = useTheme();
   const { scroll } = useScroll();
   const { fontSizeModify } = useFontSize();
   const navigate = useNavigate();
-
+  let rotaDestino = "";
   let headerMove = "";
   let logoSmall = "";
+
+  if (getItem("tipo cadastro")) {
+    if (getItem("tipo cadastro") === "cliente") {
+      rotaDestino = "/client";
+    } else if (getItem("tipo cadastro") === "estudante") {
+      rotaDestino = "/student";
+    } else if (getItem("tipo cadastro") === "escritorio") {
+      rotaDestino = "/office";
+    }
+  } else {
+    rotaDestino = "/login";
+  }
+  console.log("teste", rotaDestino, getItem("tipo cadastro"));
 
   if (theme === "light") {
     headerMove = scroll === 0 ? "" : "header-move-light";
@@ -68,12 +82,16 @@ function Header() {
             </ul>
           </nav>
           <div className="infos-client">
-            <Link to="/login" className="link">
+            <Link to={rotaDestino} className="link">
               <button
                 className={`area-cliente area-cliente-${theme}`}
                 style={{ fontSize: `calc(20px + ${fontSizeModify}px)` }}
               >
-                <p>{getItem("id") !== null ? getItem("usuario").split(" ")[0] : "Conecte-se"}</p>
+                <p>
+                  {getItem("id") !== null
+                    ? getItem("usuario").split(" ")[0]
+                    : "Conecte-se"}
+                </p>
               </button>
             </Link>
             {getItem("id") !== null ? (
@@ -82,7 +100,10 @@ function Header() {
                 title="Sair"
                 onClick={() => handleClickLogOut()}
               >
-                <img src={theme === "dark" ? sairBranco : sairPreto} alt="exit icon" />
+                <img
+                  src={theme === "dark" ? sairBranco : sairPreto}
+                  alt="exit icon"
+                />
               </button>
             ) : (
               ""
