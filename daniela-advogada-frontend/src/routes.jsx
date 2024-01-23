@@ -8,9 +8,13 @@ import Register from "./pages/Register/Register";
 import OfficePage from "./pages/office/OfficePage";
 import { getItem } from "./utils/storage";
 
-function ProtectedRoutes({ redirectTo }) {
+function ProtectedRoutes({ redirectTo, allowedTypes }) {
   const isAuthenticated = getItem("token");
-  return isAuthenticated ? <Outlet /> : <Navigate to={redirectTo} />;
+  const tipoCadastro = getItem("tipo cadastro");
+
+  const cadastradoComo = allowedTypes.includes(tipoCadastro);
+
+  return isAuthenticated && cadastradoComo ? <Outlet /> : <Navigate to={redirectTo} />;
 }
 
 function MainRoutes() {
@@ -63,7 +67,11 @@ function MainRoutes() {
       >
         <Route path="" element={<Register />} />
       </Route>
-      <Route element={<ProtectedRoutes redirectTo="/login" />}>
+      <Route
+        element={
+          <ProtectedRoutes redirectTo="/home" allowedTypes={"cliente"} />
+        }
+      >
         <Route
           path="/client"
           element={
@@ -76,7 +84,11 @@ function MainRoutes() {
           <Route path="" element={<ClientPage />} />
         </Route>
       </Route>
-      <Route element={<ProtectedRoutes redirectTo="/home" />}>
+      <Route
+        element={
+          <ProtectedRoutes redirectTo="/home" allowedTypes={"escritorio"} />
+        }
+      >
         <Route
           path="/office"
           element={

@@ -73,7 +73,7 @@ function Header() {
                 className={`area-cliente area-cliente-${theme}`}
                 style={{ fontSize: `calc(20px + ${fontSizeModify}px)` }}
               >
-                <p>{getItem("id") !== null ? getItem("usuario").split(" ")[0] : "Área do cliente"}</p>
+                <p>{getItem("id") !== null ? getItem("usuario").split(" ")[0] : "Conecte-se"}</p>
               </button>
             </Link>
             {getItem("id") !== null ? (

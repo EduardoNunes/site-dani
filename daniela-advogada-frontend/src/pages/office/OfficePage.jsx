@@ -30,7 +30,7 @@ function OfficePage() {
       console.error(error);
     }
   }
-  console.log(newDataProcess)
+  
   useEffect(() => {
     clientProcess();
   }, []);

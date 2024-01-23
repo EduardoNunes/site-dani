@@ -54,7 +54,13 @@ function Login() {
       setItem("id", response.data.usuario.id);
       setItem("tipo cadastro", response.data.usuario.cadastro);
 
-      navigate("/client");
+      if (getItem("tipo cadastro") === "cliente" ) {
+        navigate("/client")
+      } else if (getItem("tipo cadastro") === "estudante" ) {
+        navigate("/student")
+      } else if (getItem("tipo cadastro") === "escritorio" ) {
+        navigate("/office")
+      }
     } catch (error) {
       console.error("Erro na solicitação:", error.message);
       setError("Erro ao processar a solicitação");
@@ -75,7 +81,7 @@ function Login() {
   }
 
   useEffect(() => {
-    if (getItem("token")) {
+    if (getItem("token") && getItem("tipo cadastro") === "cliente") {
       navigate("/client")
     }
   }, [])
