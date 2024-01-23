@@ -25,12 +25,12 @@ function OfficePage() {
       });
 
       setDataProcess(response.data);
-      setNewDataProcess(response.data);
+      setNewDataProcess(response.data);      
     } catch (error) {
       console.error(error);
     }
   }
-
+  console.log(newDataProcess)
   useEffect(() => {
     clientProcess();
   }, []);
@@ -49,7 +49,7 @@ function OfficePage() {
           const vara = data.vara ? data.vara.toLowerCase() : "";
           const juiz = data.juiz ? data.juiz.toLowerCase() : "";
           const comarca = data.comarca ? data.comarca.toLowerCase() : "";
-          const entrada = data.entrada ? data.entrada.toLowerCase() : "";
+          const entrada = data.data_entrada ? data.data_entrada.toLowerCase() : "";
           const atualizado = data.atualizado
             ? data.atualizado.toLowerCase()
             : "";
