@@ -6,6 +6,7 @@ const {
 } = require("../controladores/clientes/listarProcessoCliente");
 const autenticarCadastrarCliente = require("../intermediarios/autenticarCadastroCliente");
 const cadastroUsuarioSchema = require("../schemas/cadastroUsuarioSchema");
+const obterCliente = require("../controladores/clientes/obterCliente");
 
 const rotas = express();
 
@@ -17,6 +18,8 @@ rotas.post(
 
 rotas.use(verificarUsuarioLogado);
 
-rotas.get("/processosClientes", verificarUsuarioLogado, listarProcessos);
+rotas.get("/obterCliente/:id", obterCliente);
+
+rotas.get("/processosClientes", listarProcessos);
 
 module.exports = rotas;

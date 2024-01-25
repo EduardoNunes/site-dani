@@ -11,24 +11,6 @@ const listarClientes = async (req, res) => {
   }
 };
 
-const obterCliente = async (req, res) => {
-  const { id } = req.params;
-
-  try {
-    const resultado = await pool.query("select * from usuarios where id = $1", [
-      id,
-    ]);
-
-    if (resultado.rows.length === 0) {
-      return res.status(404).json({ mensagem: "Cliente não encontrado" });
-    }
-
-    return res.status(200).json(resultado.rows);
-  } catch (error) {
-    console.log(error.message);
-  }
-};
-
 const atualizarCliente = async (req, res) => {
   const { id } = req.params;
   const { nome, email, senha, tipoCadastro } = req.body;
@@ -81,7 +63,6 @@ const deletarCliente = async (req, res) => {
 
 module.exports = {
   listarClientes,
-  obterCliente,
   atualizarCliente,
   deletarCliente
 };
