@@ -46,7 +46,7 @@ function RegisterPage() {
         return;
       }
 
-      await api.post("/clientes", {
+      await api.post("/usuario", {
         nome: name,
         email: email,
         senha: password,

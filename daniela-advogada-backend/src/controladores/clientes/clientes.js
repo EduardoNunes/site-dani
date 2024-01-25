@@ -1,5 +1,4 @@
 const pool = require("../../conexao");
-const bcrypt = require("bcrypt")
 
 const listarClientes = async (req, res) => {
   try {
@@ -63,6 +62,5 @@ const deletarCliente = async (req, res) => {
 
 module.exports = {
   listarClientes,
-  atualizarCliente,
-  deletarCliente
+  deletarCliente,
 };

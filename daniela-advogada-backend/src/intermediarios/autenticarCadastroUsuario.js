@@ -1,4 +1,4 @@
-const autenticarCadastrarCliente = (joiSchema) => async (req, res, next) => {
+const autenticarCadastrarUsuario = (joiSchema) => async (req, res, next) => {
   try {
     await joiSchema.validateAsync(req.body);
     next();
@@ -8,4 +8,4 @@ const autenticarCadastrarCliente = (joiSchema) => async (req, res, next) => {
   }
 };
 
-module.exports = autenticarCadastrarCliente;
+module.exports = autenticarCadastrarUsuario;

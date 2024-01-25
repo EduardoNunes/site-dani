@@ -41,8 +41,25 @@ function EditUser() {
     EditUserData();
   }, []);
 
-  function handleSubmit() {
-    console.log("teste")
+  async function handleSubmit(event) {
+    event.preventDefault();
+  
+    try {
+      const response = await api.put(
+        `/atualizarUsuario/${id}`,
+        {
+          nome,
+          email,
+          senha,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      console.log("Usuário atualizado com sucesso!", response.data);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   return (

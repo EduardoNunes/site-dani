@@ -1,7 +1,7 @@
 const pool = require("../../conexao");
 
 const obterCliente = async (req, res) => {
-    const id = req.usuario.id;
+    const id = req.params.id;
 
   try {
     const resultado = await pool.query("select * from usuarios where id = $1", [
