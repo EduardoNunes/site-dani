@@ -1,15 +1,52 @@
 import "./edit-user.css";
 import XPreto from "../../assets/x-preto.png";
 import XBranco from "../../assets/x-branco.png";
+import olhoFechado from "../../assets/olho-fechado.png";
+import olhoAberto from "../../assets/olho-aberto.png";
 import { useTheme } from "../../context/ThemeContext";
 import { useModal } from "../../context/ModalsContext";
+import api from "../../services/api";
+import { getItem } from "../../utils/storage";
+import { useEffect, useState } from "react";
+import { useShowPassword } from "../../context/showPasswordContext";
 
 function EditUser() {
+  const { handleClickShowPassword, showPassword } = useShowPassword();
   const { theme } = useTheme();
   const { handleClickOpenSettings } = useModal();
+  const [userData, setUserData] = useState({});
+  const [nome, setNome] = useState("");
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+  const token = getItem("token");
+  const id = getItem("id");
+
+  async function EditUserData() {
+    try {
+      const response = await api.get(`/obterCliente/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      const user = response.data[0];
+      setUserData(user);
+      setNome(user.nome);
+      setEmail(user.email);
+      setSenha(user.senha);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  useEffect(() => {
+    EditUserData();
+  }, []);
+
+  function handleSubmit() {
+    console.log("teste")
+  }
 
   return (
-    <div className="edit-user">
+    <div className={`edit-user edit-user-${theme}`}>
       <div className="container-edit-user">
         <div className="chart-edit-user">
           <img
@@ -19,16 +56,46 @@ function EditUser() {
             onClick={() => handleClickOpenSettings(false)}
           />
           <h3>Editar Usuário</h3>
-          <ul>
-            <li>Nome</li>
-            <p>nome</p>
-            <li>email</li>
-            <p>email</p>
-            <li>senha</li>
-            <p>senha</p>
-            <li>Tipo de cadastro</li>
-            <p>Cliente</p>
-          </ul>
+          {userData && Object.keys(userData).length > 0 ? (
+            <form onSubmit={handleSubmit}>
+              <label>Nome</label>
+              <input
+                value={nome}
+                onChange={(e) => setNome(e.target.value)}
+              ></input>
+              <label>email</label>
+              <input
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              ></input>
+              <label>senha</label>
+              <div className="input-senha">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Digite a nova senha."
+                  onChange={(e) => setSenha(e.target.value)}
+                ></input>
+                <div className="olho-password">
+                  <img
+                    src={showPassword ? olhoAberto : olhoFechado}
+                    alt="Mostrar senha"
+                    style={{
+                      width: `calc(20px)`,
+                    }}
+                    onClick={() => handleClickShowPassword()}
+                  />
+                </div>
+              </div>
+              <label>Tipo de cadastro</label>
+              <p>{userData.cadastro}</p>
+
+              <div className="edit-buttons">
+                <button>Enviar</button>
+              </div>
+            </form>
+          ) : (
+            ""
+          )}
         </div>
       </div>
     </div>

@@ -1,13 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MarmoreRoxo from "../../assets/marmore-preto-roxo.jpg";
 import MarmoreBranco from "../../assets/textura-marmore.jpg";
+import { useModal } from "../../context/ModalsContext";
 import { useTheme } from "../../context/ThemeContext";
 import ProcessDetails from "../../modals/ProcessDetails/ProcessDetails";
-import "./client-page.css";
-import { useModal } from "../../context/ModalsContext";
-import { useEffect } from "react";
 import api from "../../services/api";
 import { getItem } from "../../utils/storage";
+import "./client-page.css";
 
 function ClientPage() {
   const { theme } = useTheme();

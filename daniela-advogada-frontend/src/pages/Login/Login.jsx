@@ -11,15 +11,17 @@ import TipoCadastro from "../../components/TipoCadastro/TipoCadastro";
 import "./login.css";
 import { useTipoCadastroContext } from "../../context/TipoCadastroContext";
 import { getItem, setItem } from "../../utils/storage";
+import { useShowPassword } from "../../context/showPasswordContext";
 
 function Login() {
   const { theme } = useTheme();
   const { selectedOption } = useTipoCadastroContext();
   const { fontSizeModify } = useFontSize();
+  const { handleClickShowPassword, showPassword } =
+    useShowPassword();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [showPassword, setShowPassword] = useState(olhoFechado);
   const navigate = useNavigate();
 
   async function handleSubmit(event) {
@@ -54,12 +56,12 @@ function Login() {
       setItem("id", response.data.usuario.id);
       setItem("tipo cadastro", response.data.usuario.cadastro);
 
-      if (getItem("tipo cadastro") === "cliente" ) {
-        navigate("/client")
-      } else if (getItem("tipo cadastro") === "estudante" ) {
-        navigate("/student")
-      } else if (getItem("tipo cadastro") === "escritorio" ) {
-        navigate("/office")
+      if (getItem("tipo cadastro") === "cliente") {
+        navigate("/client");
+      } else if (getItem("tipo cadastro") === "estudante") {
+        navigate("/student");
+      } else if (getItem("tipo cadastro") === "escritorio") {
+        navigate("/office");
       }
     } catch (error) {
       console.error("Erro na solicitação:", error.message);
@@ -76,15 +78,11 @@ function Login() {
     setError("");
   }
 
-  function handleClickShowPassword() {
-    setShowPassword(showPassword === olhoAberto ? olhoFechado : olhoAberto);
-  }
-
   useEffect(() => {
     if (getItem("token")) {
-      navigate("/client")
+      navigate("/client");
     }
-  }, [])
+  }, []);
 
   return (
     <div className={`login login-${theme}`}>
@@ -122,7 +120,7 @@ function Login() {
             <label>Senha:</label>
             <div className="input2">
               <input
-                type={showPassword === olhoAberto ? "text" : "password"}
+                type={showPassword ? "text" : "password"}
                 value={password}
                 placeholder="Digite sua senha."
                 style={{
@@ -133,8 +131,8 @@ function Login() {
               />
               <div className="olho-password">
                 <img
-                  src={showPassword}
-                  alt=""
+                  src={showPassword ? olhoAberto : olhoFechado}
+                  alt="Mostrar senha"
                   style={{
                     width: `calc(20px + ${fontSizeModify * 2}px)`,
                   }}
