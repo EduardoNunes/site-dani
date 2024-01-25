@@ -4,7 +4,7 @@ import MarmoreRoxo from "../../assets/marmore-preto-roxo.jpg";
 import MarmoreBranco from "../../assets/textura-marmore.jpg";
 import { useModal } from "../../context/ModalsContext";
 import { useTheme } from "../../context/ThemeContext";
-import ProcessDetails from "../../modals/ProcessDetails";
+import ProcessDetails from "../../modals/ProcessDetails/ProcessDetails";
 import api from "../../services/api";
 import { getItem } from "../../utils/storage";
 import "./office-page.css";

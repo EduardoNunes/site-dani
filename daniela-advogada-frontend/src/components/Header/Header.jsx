@@ -1,6 +1,8 @@
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import LogoReduzidaBranco from "../../assets/logo-reduzida-branco.png";
 import LogoReduzidaColor from "../../assets/logo-reduzida-color-120px.png";
+import settingsWhite from "../../assets/settings-white.png";
+import settingsBlack from "../../assets/settings-black.png";
 import { useFontSize } from "../../context/FontSizeContext";
 import { useScroll } from "../../context/ScrollContext";
 import { useTheme } from "../../context/ThemeContext";
@@ -8,7 +10,6 @@ import { removeItem, getItem } from "../../utils/storage";
 import "./header.css";
 import sairBranco from "../../assets/sair-branco.png";
 import sairPreto from "../../assets/sair-preto.png";
-import { useState } from "react";
 
 function Header() {
   const { theme } = useTheme();
@@ -30,7 +31,6 @@ function Header() {
   } else {
     rotaDestino = "/login";
   }
-  console.log("teste", rotaDestino, getItem("tipo cadastro"));
 
   if (theme === "light") {
     headerMove = scroll === 0 ? "" : "header-move-light";
@@ -39,6 +39,8 @@ function Header() {
     headerMove = scroll === 0 ? "" : "header-move-dark";
     logoSmall = scroll === 0 ? "" : "logo-small";
   }
+
+  function handleClickSettings() {}
 
   function handleClickLogOut() {
     removeItem("usuario");
@@ -95,16 +97,33 @@ function Header() {
               </button>
             </Link>
             {getItem("id") !== null ? (
-              <button
-                className="button-2"
-                title="Sair"
-                onClick={() => handleClickLogOut()}
-              >
-                <img
-                  src={theme === "dark" ? sairBranco : sairPreto}
-                  alt="exit icon"
-                />
-              </button>
+              <div className="buttons-settings-exit">
+                {
+                  <button
+                    className="button-1"
+                    title="configurações"
+                    onClick={() => handleClickSettings()}
+                  >
+                    <img
+                      src={theme === "dark" ? settingsWhite : settingsBlack}
+                      alt="settings icon"
+                    />
+                  </button>
+                }
+
+                {
+                  <button
+                    className="button-2"
+                    title="Sair"
+                    onClick={() => handleClickLogOut()}
+                  >
+                    <img
+                      src={theme === "dark" ? sairBranco : sairPreto}
+                      alt="exit icon"
+                    />
+                  </button>
+                }
+              </div>
             ) : (
               ""
             )}

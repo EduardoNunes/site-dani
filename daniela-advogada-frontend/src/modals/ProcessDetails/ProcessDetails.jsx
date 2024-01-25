@@ -1,8 +1,8 @@
 import "./process-details.css";
-import XPreto from "../assets/x-preto.png";
-import XBranco from "../assets/x-branco.png";
-import { useTheme } from "../context/ThemeContext";
-import { useModal } from "../context/ModalsContext";
+import XPreto from "../../assets/x-preto.png";
+import XBranco from "../../assets/x-branco.png";
+import { useTheme } from "../../context/ThemeContext";
+import { useModal } from "../../context/ModalsContext";
 
 function ProcessDetails({ processo }) {
   const { theme } = useTheme();

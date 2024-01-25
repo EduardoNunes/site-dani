@@ -131,7 +131,7 @@
 
 .header .container .infos-client {
   display: flex;
-  margin-right: 44px;
+  margin-right: 40px;
 }
 
 .header-dark .container .infos-client {
@@ -166,7 +166,7 @@
 }
 
 .header .container .infos-client .area-cliente:hover {
-  background-color: rgba(var(--cor-roxo), 0.03);
+  background-color: rgba(var(--cor-roxo), 0.2);
   border: 1px solid rgba(var(--cor-roxo), 1);
 }
 
@@ -188,6 +188,13 @@
   color: rgba(var(--cor-rosa), 1);
 }
 
+.header .container .infos-client .buttons-settings-exit {
+  display: flex;
+  justify-content: space-between;
+  width: 82px;
+}
+
+.header .container .infos-client .button-1,
 .header .container .infos-client .button-2 {
   display: flex;
   justify-content: center;
@@ -201,15 +208,23 @@
   transition: ease-in-out .2s;
 }
 
+.header-dark .container .infos-client .button-1,
 .header-dark .container .infos-client .button-2 {
   border: 1px solid rgba(var(--cor-rosa), 1);
   background-color: rgba(var(--cor-roxo), 0.1);
 }
 
+.header .container .infos-client .button-1:hover,
+.header .container .infos-client .button-2:hover {
+  background-color: rgba(var(--cor-roxo), 0.2);
+}
+
+.header-dark .container .infos-client .button-1:hover,
 .header-dark .container .infos-client .button-2:hover {
   background-color: rgba(var(--cor-rosa), 0.2);
 }
 
+.header .container .infos-client .button-1 img,
 .header .container .infos-client .button-2 img {
   width: 28px;
 }
