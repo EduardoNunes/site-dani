@@ -1,7 +1,7 @@
-const pool = require("../conexao");
+const pool = require("../../conexao");
 
 const listarProcessos = async (req, res) => {
-  const usuarioId = req.usuario.id
+  const usuarioId = req.usuario.id;
 
   try {
     const resultado = await pool.query(

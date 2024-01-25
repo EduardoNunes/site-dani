@@ -1,14 +1,4 @@
-const pool = require("../conexao");
-
-const listarProcessos = async (req, res) => {
-  try {
-    const resultado = await pool.query("select * from processos");
-
-    return res.json(resultado.rows);
-  } catch (error) {
-    console.log(error.mensage);
-  }
-};
+const pool = require("../../conexao");
 
 const obterProcesso = async (req, res) => {
   const { id } = req.params;
@@ -154,7 +144,6 @@ const deletarProcesso = async (req, res) => {
 };
 
 module.exports = {
-  listarProcessos,
   obterProcesso,
   cadastrarProcesso,
   atualizarProcesso,

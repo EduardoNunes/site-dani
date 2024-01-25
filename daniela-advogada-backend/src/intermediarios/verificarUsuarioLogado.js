@@ -5,8 +5,8 @@ const pool = require("../conexao");
 const verificarUsuarioLogado = async (req, res, next) => {
   const { authorization } = req.headers;
 
-  if (!authorization) {    
-    return res.status(401).json({ mensagem: "Não autenticado." });
+  if (!authorization) {
+    return res.status(401).json({ mensagem: "Não autenticado1." });
   }
 
   const token = authorization.split(" ")[1];
@@ -24,7 +24,6 @@ const verificarUsuarioLogado = async (req, res, next) => {
     }
 
     if (rows[0].cadastro !== cadastro) {
-      console.log(rows.cadastro, cadastro);
       return res.status(401).json({ mensagem: "Cadastro não autorizado." });
     }
 
