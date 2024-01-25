@@ -1,10 +1,11 @@
 const joi = require("joi");
 
 const cadastroUsuarioSchema = joi.object({
-  nome: joi.string().min(5).required(),
-  "string.empty": "O campo nome é obrigatório",
-  "any.required": "O campo nome é obrigatório",
-  "string.base": "Insira um nome válido",
+  nome: joi.string().min(5).required().messages({
+    "string.empty": "O campo nome é obrigatório",
+    "any.required": "O campo nome é obrigatório",
+    "string.base": "Insira um nome válido",
+  }),
   email: joi.string().email().required().messages({
     "any.required": "O campo email é obrigatório",
     "string.empty": "O campo email é obrigatório",
