@@ -1,14 +1,14 @@
-import "./edit-user.css";
-import XPreto from "../../assets/x-preto.png";
-import XBranco from "../../assets/x-branco.png";
-import olhoFechado from "../../assets/olho-fechado.png";
+import { useEffect, useState } from "react";
 import olhoAberto from "../../assets/olho-aberto.png";
-import { useTheme } from "../../context/ThemeContext";
+import olhoFechado from "../../assets/olho-fechado.png";
+import XBranco from "../../assets/x-branco.png";
+import XPreto from "../../assets/x-preto.png";
 import { useModal } from "../../context/ModalsContext";
+import { useTheme } from "../../context/ThemeContext";
+import { useShowPassword } from "../../context/showPasswordContext";
 import api from "../../services/api";
 import { getItem } from "../../utils/storage";
-import { useEffect, useState } from "react";
-import { useShowPassword } from "../../context/showPasswordContext";
+import "./edit-user.css";
 
 function EditUser() {
   const { handleClickShowPassword, showPassword } = useShowPassword();
