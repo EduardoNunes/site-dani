@@ -10,8 +10,11 @@ import { removeItem, getItem } from "../../utils/storage";
 import "./header.css";
 import sairBranco from "../../assets/sair-branco.png";
 import sairPreto from "../../assets/sair-preto.png";
+import { useModal } from "../../context/ModalsContext";
+import EditUser from "../../modals/EditUser/EditUser";
 
 function Header() {
+  const { handleClickOpenSettings, openUserEdit } = useModal();
   const { theme } = useTheme();
   const { scroll } = useScroll();
   const { fontSizeModify } = useFontSize();
@@ -40,8 +43,6 @@ function Header() {
     logoSmall = scroll === 0 ? "" : "logo-small";
   }
 
-  function handleClickSettings() {}
-
   function handleClickLogOut() {
     removeItem("usuario");
     removeItem("token");
@@ -53,6 +54,7 @@ function Header() {
 
   return (
     <div className="container-header">
+      {openUserEdit && <EditUser />}
       <div className={`header header-${theme} ${headerMove}`}>
         <div className="container">
           <div className={`logo ${logoSmall}`}>
@@ -102,7 +104,7 @@ function Header() {
                   <button
                     className="button-1"
                     title="configurações"
-                    onClick={() => handleClickSettings()}
+                    onClick={() => handleClickOpenSettings(true)}
                   >
                     <img
                       src={theme === "dark" ? settingsWhite : settingsBlack}
