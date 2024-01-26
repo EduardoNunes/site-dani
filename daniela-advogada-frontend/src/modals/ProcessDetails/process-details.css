@@ -90,6 +90,10 @@
   background-color: rgba(var(--cor-branco), 0.8);
 }
 
+.process-details .container-process .chart-process ul p:last-of-type {
+  align-items: normal;
+}
+
 .process-details .container-process .chart-process ul .infos {
   height: 90px;
 

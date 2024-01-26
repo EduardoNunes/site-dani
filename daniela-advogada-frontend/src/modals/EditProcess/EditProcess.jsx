@@ -16,14 +16,16 @@ function EditProcess() {
   const [vara, setVara] = useState(selectedEditProcess.vara);
   const [juiz, setJuiz] = useState(selectedEditProcess.juiz);
   const [comarca, setComarca] = useState(selectedEditProcess.comarca);
-  const [data_entrada, setData_Entrada] = useState(selectedEditProcess.data_entrada);
+  const [data_entrada, setData_Entrada] = useState(
+    selectedEditProcess.data_entrada
+  );
   const [atualizado, setAtualizado] = useState(selectedEditProcess.atualizado);
   const [infos, setInfos] = useState(selectedEditProcess.infos);
   const token = getItem("token");
   const id = selectedEditProcess.id;
 
   async function handleSubmit(event) {
-    event.preventDefault()
+    event.preventDefault();
 
     try {
       const response = await api.put(
@@ -43,7 +45,7 @@ function EditProcess() {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-
+      handleClickOpenEditProcess(false);
       console.log("Processo atualizado com sucesso!", response.data);
     } catch (error) {
       console.error(error);
@@ -100,10 +102,10 @@ function EditProcess() {
               onChange={(e) => setAtualizado(e.target.value)}
             ></input>
             <label>Informações:</label>
-            <input
+            <textarea
               value={infos}
               onChange={(e) => setInfos(e.target.value)}
-            ></input>
+            ></textarea>
 
             <button>Enviar</button>
           </form>
