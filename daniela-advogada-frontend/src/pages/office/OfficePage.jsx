@@ -5,6 +5,10 @@ import MarmoreBranco from "../../assets/textura-marmore.jpg";
 import { useModal } from "../../context/ModalsContext";
 import { useTheme } from "../../context/ThemeContext";
 import ProcessDetails from "../../modals/ProcessDetails/ProcessDetails";
+import EditBlack from "../../assets/edit-black.png";
+import EditWhite from "../../assets/edit-white.png";
+import TrashBlack from "../../assets/trash-black.png";
+import TrashWhite from "../../assets/trash-white.png";
 import api from "../../services/api";
 import { getItem } from "../../utils/storage";
 import "./office-page.css";
@@ -25,12 +29,12 @@ function OfficePage() {
       });
 
       setDataProcess(response.data);
-      setNewDataProcess(response.data);      
+      setNewDataProcess(response.data);
     } catch (error) {
       console.error(error);
     }
   }
-  
+
   useEffect(() => {
     clientProcess();
   }, []);
@@ -49,7 +53,9 @@ function OfficePage() {
           const vara = data.vara ? data.vara.toLowerCase() : "";
           const juiz = data.juiz ? data.juiz.toLowerCase() : "";
           const comarca = data.comarca ? data.comarca.toLowerCase() : "";
-          const entrada = data.data_entrada ? data.data_entrada.toLowerCase() : "";
+          const entrada = data.data_entrada
+            ? data.data_entrada.toLowerCase()
+            : "";
           const atualizado = data.atualizado
             ? data.atualizado.toLowerCase()
             : "";
@@ -100,8 +106,8 @@ function OfficePage() {
                 <li>Réu:</li>
                 <li>Nº do processo:</li>
                 <li>Vara:</li>
-                <li>Data de entrada</li>
                 <li>Movimentação:</li>
+                <li></li>
               </ul>
             </div>
             <div className="body">
@@ -110,17 +116,29 @@ function OfficePage() {
               ) : (
                 dataProcess &&
                 dataProcess.map((processo, index) => (
-                  <div
-                    key={index}
-                    className="line"
-                    onClick={() => handleOpenProcessDetails(true, processo)}
-                  >
-                    <p title={processo.autor}>{processo.autor}</p>
-                    <p title={processo.reu}>{processo.reu}</p>
-                    <p title={processo.numero}>{processo.numero}</p>
-                    <p title={processo.vara}>{processo.vara}</p>
-                    <p title={processo.data_entrada}>{processo.data_entrada}</p>
-                    <p title={processo.atualizado}>{processo.atualizado}</p>
+                  <div key={index} className="line">
+                    <ul>
+                      <li
+                        title={processo.autor}
+                        onClick={() => handleOpenProcessDetails(true, processo)}
+                      >
+                        {processo.autor}
+                      </li>
+                      <li title={processo.reu}>{processo.reu}</li>
+                      <li title={processo.numero}>{processo.numero}</li>
+                      <li title={processo.vara}>{processo.vara}</li>
+                      <li title={processo.atualizado}>{processo.atualizado}</li>
+                      <li>
+                        <img
+                          src={theme === "light" ? EditBlack : EditWhite}
+                          alt="Edit Icon"
+                        />
+                        <img
+                          src={theme === "light" ? TrashBlack : TrashWhite}
+                          alt="Trash Icon"
+                        />
+                      </li>
+                    </ul>
                   </div>
                 ))
               )}
