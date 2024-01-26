@@ -76,6 +76,21 @@ function OfficePage() {
     }
   }
 
+  async function excluirProcesso(processoId) {
+    try {
+      await api.delete(`/deletarProcesso/${processoId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      console.log("Processo deletado com sucesso!");
+      clientProcess();
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   return (
     <div className={`office-page office-page-${theme}`}>
       {openProcessDetails && <ProcessDetails processo={selectedProcess} />}
@@ -122,12 +137,12 @@ function OfficePage() {
                         title={processo.autor}
                         onClick={() => handleOpenProcessDetails(true, processo)}
                       >
-                        {processo.autor}
-                      </li>
-                      <li title={processo.reu}>{processo.reu}</li>
-                      <li title={processo.numero}>{processo.numero}</li>
-                      <li title={processo.vara}>{processo.vara}</li>
-                      <li title={processo.atualizado}>{processo.atualizado}</li>
+  <p>                      {processo.autor}
+</p>                      </li>
+                      <li title={processo.reu}><p>{processo.reu}</p></li>
+                      <li title={processo.numero}><p>{processo.numero}</p></li>
+                      <li title={processo.vara}><p>{processo.vara}</p></li>
+                      <li title={processo.atualizado}><p>{processo.atualizado}</p></li>
                       <li>
                         <img
                           src={theme === "light" ? EditBlack : EditWhite}
@@ -136,6 +151,7 @@ function OfficePage() {
                         <img
                           src={theme === "light" ? TrashBlack : TrashWhite}
                           alt="Trash Icon"
+                          onClick={() => excluirProcesso(processo.id)}
                         />
                       </li>
                     </ul>

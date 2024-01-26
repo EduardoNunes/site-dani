@@ -16,7 +16,7 @@ export function ModalProvider({ children }) {
     setOpenProcessDetails(openClose);
   }
 
-  function handleClickOpenSettings(openClose, user) {    
+  function handleClickOpenSettings(openClose) {    
     setOpenUserEdit(openClose);    
   }
 
