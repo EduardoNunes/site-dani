@@ -11,9 +11,10 @@ const editarUsuarioSchema = require("../schemas/editarClienteSchema");
 
 const rotas = express();
 
+rotas.get("/obterCliente/:id", obterCliente);
+
 rotas.use(verificarUsuarioLogado);
 
-rotas.get("/obterCliente/:id", obterCliente);
 rotas.put(
   "/atualizarUsuario/:id",
   autenticarEditarUsuario(editarUsuarioSchema),
