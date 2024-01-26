@@ -11,7 +11,7 @@ const atualizarUsuario = async (req, res) => {
     const usuario = await pool.query("select * from usuarios where id = $1", [
       id,
     ]);
-    console.log(usuario.rows);
+
     await pool.query(
       "update usuarios set nome = $1, email = $2, senha = $3 where id = $4",
       [nome, email, senhaCriptografada, id]

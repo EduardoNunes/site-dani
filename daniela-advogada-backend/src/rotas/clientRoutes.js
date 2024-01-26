@@ -6,20 +6,13 @@ const {
 
 const obterCliente = require("../controladores/clientes/obterCliente");
 const atualizarUsuario = require("../controladores/usuarios/atualizarUsuario");
-const autenticarEditarUsuario = require("../intermediarios/autenticarEditarUsuario");
-const editarUsuarioSchema = require("../schemas/editarClienteSchema");
+
 
 const rotas = express();
 
 rotas.get("/obterCliente/:id", obterCliente);
 
 rotas.use(verificarUsuarioLogado);
-
-rotas.put(
-  "/atualizarUsuario/:id",
-  autenticarEditarUsuario(editarUsuarioSchema),
-  atualizarUsuario
-);
 
 rotas.get("/processosClientes", listarProcessos);
 
