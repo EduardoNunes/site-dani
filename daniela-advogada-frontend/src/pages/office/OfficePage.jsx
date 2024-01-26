@@ -12,6 +12,7 @@ import TrashWhite from "../../assets/trash-white.png";
 import api from "../../services/api";
 import { getItem } from "../../utils/storage";
 import "./office-page.css";
+import EditProcess from "../../modals/EditProcess/EditProcess";
 
 function OfficePage() {
   const { theme } = useTheme();
@@ -19,6 +20,7 @@ function OfficePage() {
     useModal();
   const [dataProcess, setDataProcess] = useState();
   const [newDataProcess, setNewDataProcess] = useState();
+  const { handleClickOpenEditProcess, openEditProcess } = useModal();
 
   const token = getItem("token");
 
@@ -94,6 +96,7 @@ function OfficePage() {
   return (
     <div className={`office-page office-page-${theme}`}>
       {openProcessDetails && <ProcessDetails processo={selectedProcess} />}
+      {openEditProcess && <EditProcess /* processo={dataProcess} *//>}
       <img
         className={`background background-${theme}`}
         src={theme === "light" ? MarmoreBranco : MarmoreRoxo}
@@ -137,16 +140,25 @@ function OfficePage() {
                         title={processo.autor}
                         onClick={() => handleOpenProcessDetails(true, processo)}
                       >
-  <p>                      {processo.autor}
-</p>                      </li>
-                      <li title={processo.reu}><p>{processo.reu}</p></li>
-                      <li title={processo.numero}><p>{processo.numero}</p></li>
-                      <li title={processo.vara}><p>{processo.vara}</p></li>
-                      <li title={processo.atualizado}><p>{processo.atualizado}</p></li>
+                        <p> {processo.autor}</p>{" "}
+                      </li>
+                      <li title={processo.reu}>
+                        <p>{processo.reu}</p>
+                      </li>
+                      <li title={processo.numero}>
+                        <p>{processo.numero}</p>
+                      </li>
+                      <li title={processo.vara}>
+                        <p>{processo.vara}</p>
+                      </li>
+                      <li title={processo.atualizado}>
+                        <p>{processo.atualizado}</p>
+                      </li>
                       <li>
                         <img
                           src={theme === "light" ? EditBlack : EditWhite}
                           alt="Edit Icon"
+                          onClick={() => handleClickOpenEditProcess(true, processo)}
                         />
                         <img
                           src={theme === "light" ? TrashBlack : TrashWhite}

@@ -43,7 +43,7 @@ function EditUser() {
 
   async function handleSubmit(event) {
     event.preventDefault();
-  
+
     try {
       const response = await api.put(
         `/atualizarUsuario/${id}`,
@@ -56,6 +56,7 @@ function EditUser() {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
+
       console.log("Usuário atualizado com sucesso!", response.data);
     } catch (error) {
       console.error(error);

@@ -10,6 +10,8 @@ export function ModalProvider({ children }) {
   const [openProcessDetails, setOpenProcessDetails] = useState(false);
   const [selectedProcess, setSelectedProcess] = useState(null);
   const [openUserEdit, setOpenUserEdit] = useState(false);
+  const [openEditProcess, setOpenEditProcess] = useState(false)
+  const [selectedEditProcess, setSelectedEditProcess] = useState(null)
 
   function handleOpenProcessDetails(openClose, processo) {
     setSelectedProcess(processo);
@@ -20,6 +22,11 @@ export function ModalProvider({ children }) {
     setOpenUserEdit(openClose);    
   }
 
+  function handleClickOpenEditProcess(openClose, processo) {
+    setSelectedEditProcess(processo);
+    setOpenEditProcess(openClose)
+  }
+
   return (
     <ModalContext.Provider
       value={{
@@ -28,6 +35,9 @@ export function ModalProvider({ children }) {
         selectedProcess,
         handleClickOpenSettings,
         openUserEdit,
+        handleClickOpenEditProcess,
+        openEditProcess,
+        selectedEditProcess
       }}
     >
       {children}
