@@ -1,4 +1,4 @@
-import "./edit-process.css";
+import "./register-process.css";
 import XPreto from "../../assets/x-preto.png";
 import XBranco from "../../assets/x-branco.png";
 import { useTheme } from "../../context/ThemeContext";
@@ -7,28 +7,27 @@ import { useState } from "react";
 import api from "../../services/api";
 import { getItem } from "../../utils/storage";
 
-function EditProcess() {
+function RegisterProcess() {
   const { theme } = useTheme();
-  const { handleClickOpenEditProcess, selectedEditProcess } = useModal();
-  const [autor, setAutor] = useState(selectedEditProcess.autor);
-  const [reu, setReu] = useState(selectedEditProcess.reu);
-  const [numero, setNumero] = useState(selectedEditProcess.numero);
-  const [vara, setVara] = useState(selectedEditProcess.vara);
-  const [juiz, setJuiz] = useState(selectedEditProcess.juiz);
-  const [comarca, setComarca] = useState(selectedEditProcess.comarca);
-  const [data_entrada, setData_Entrada] = useState(
-    selectedEditProcess.data_entrada
-  );
-  const [atualizado, setAtualizado] = useState(selectedEditProcess.atualizado);
-  const [infos, setInfos] = useState(selectedEditProcess.infos);
+  const { handleClickOpenRegisterProcess } = useModal();
+  const [autor, setAutor] = useState();
+  const [reu, setReu] = useState();
+  const [numero, setNumero] = useState();
+  const [vara, setVara] = useState();
+  const [juiz, setJuiz] = useState();
+  const [comarca, setComarca] = useState();
+  const [data_entrada, setData_Entrada] = useState();
+
+  const [atualizado, setAtualizado] = useState();
+  const [infos, setInfos] = useState();
   const token = getItem("token");
-  const id = selectedEditProcess.id;
+  const id = getItem("id");
 
   async function handleSubmit(event) {
     event.preventDefault();
 
     try {
-      const response = await api.put(
+      const response = await api.post(
         `/editarProcessoEscritorio/${id}`,
         {
           autor,
@@ -45,7 +44,7 @@ function EditProcess() {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      handleClickOpenEditProcess(false);
+      handleClickOpenRegisterProcess(false);
       console.log("Processo atualizado com sucesso!", response.data);
     } catch (error) {
       console.error(error);
@@ -53,16 +52,16 @@ function EditProcess() {
   }
 
   return (
-    <div className={`edit-process edit-process-${theme}`}>
+    <div className={`register-process register-process-${theme}`}>
       <div className="container-process">
         <div className="chart-process">
           <img
             src={theme === "light" ? XPreto : XBranco}
             title="Sair"
-            alt=""
-            onClick={() => handleClickOpenEditProcess(false)}
+            alt="Sair"
+            onClick={() => handleClickOpenRegisterProcess(false)}
           />
-          <h3>Editar Processo</h3>
+          <h3>Cadastrar Processo</h3>
           <form onSubmit={handleSubmit}>
             <label>Autor:</label>
             <input
@@ -115,4 +114,4 @@ function EditProcess() {
   );
 }
 
-export default EditProcess;
+export default RegisterProcess;

@@ -21,7 +21,7 @@ function ClientPage() {
       const response = await api.get("/processosClientes", {
         headers: { Authorization: `Bearer ${token}` },
       });
-      
+
       setDataProcess(response.data);
     } catch (error) {
       console.error(error);
@@ -64,12 +64,28 @@ function ClientPage() {
                     className="line"
                     onClick={() => handleOpenProcessDetails(true, processo)}
                   >
-                    <p title={processo.autor}>{processo.autor}</p>
-                    <p title={processo.reu}>{processo.reu}</p>
-                    <p title={processo.numero}>{processo.numero}</p>
-                    <p title={processo.vara}>{processo.vara}</p>
-                    <p title={processo.data_entrada}>{processo.data_entrada}</p>
-                    <p title={processo.atualizado}>{processo.atualizado}</p>
+                    <ul>
+                      <li>
+                        <p title={processo.autor}>{processo.autor}</p>
+                      </li>
+                      <li>
+                        <p title={processo.reu}>{processo.reu}</p>
+                      </li>
+                      <li>
+                        <p title={processo.numero}>{processo.numero}</p>
+                      </li>
+                      <li>
+                        <p title={processo.vara}>{processo.vara}</p>
+                      </li>
+                      <li>
+                        <p title={processo.data_entrada}>
+                          {processo.data_entrada}
+                        </p>
+                      </li>
+                      <li>
+                        <p title={processo.atualizado}>{processo.atualizado}</p>
+                      </li>
+                    </ul>
                   </div>
                 ))
               )}

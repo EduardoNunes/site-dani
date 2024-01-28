@@ -13,14 +13,21 @@ import api from "../../services/api";
 import { getItem } from "../../utils/storage";
 import "./office-page.css";
 import EditProcess from "../../modals/EditProcess/EditProcess";
+import RegisterProcess from "../../modals/RegisterProcess/RegisterProcess";
 
 function OfficePage() {
   const { theme } = useTheme();
-  const { handleOpenProcessDetails, openProcessDetails, selectedProcess } =
-    useModal();
+  const {
+    handleOpenProcessDetails,
+    openProcessDetails,
+    selectedProcess,
+    openEditProcess,
+    handleClickOpenEditProcess,
+    handleClickOpenRegisterProcess,
+    openRegisterProcess,
+  } = useModal();
   const [dataProcess, setDataProcess] = useState();
   const [newDataProcess, setNewDataProcess] = useState();
-  const { handleClickOpenEditProcess, openEditProcess } = useModal();
 
   const token = getItem("token");
 
@@ -96,7 +103,8 @@ function OfficePage() {
   return (
     <div className={`office-page office-page-${theme}`}>
       {openProcessDetails && <ProcessDetails processo={selectedProcess} />}
-      {openEditProcess && <EditProcess /* processo={dataProcess} *//>}
+      {openEditProcess && <EditProcess />}
+      {openRegisterProcess && <RegisterProcess />}
       <img
         className={`background background-${theme}`}
         src={theme === "light" ? MarmoreBranco : MarmoreRoxo}
@@ -105,6 +113,11 @@ function OfficePage() {
       <div className="container">
         <div className="tool-bar">
           <div className="content">
+            <div className="button-cadastrar">
+              <button onClick={() => handleClickOpenRegisterProcess(true)}>
+                Cadastrar Processo
+              </button>
+            </div>
             <div className="input">
               <input
                 type="text"
@@ -158,7 +171,9 @@ function OfficePage() {
                         <img
                           src={theme === "light" ? EditBlack : EditWhite}
                           alt="Edit Icon"
-                          onClick={() => handleClickOpenEditProcess(true, processo)}
+                          onClick={() =>
+                            handleClickOpenEditProcess(true, processo)
+                          }
                         />
                         <img
                           src={theme === "light" ? TrashBlack : TrashWhite}

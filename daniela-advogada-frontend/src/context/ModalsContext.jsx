@@ -10,21 +10,27 @@ export function ModalProvider({ children }) {
   const [openProcessDetails, setOpenProcessDetails] = useState(false);
   const [selectedProcess, setSelectedProcess] = useState(null);
   const [openUserEdit, setOpenUserEdit] = useState(false);
-  const [openEditProcess, setOpenEditProcess] = useState(false)
-  const [selectedEditProcess, setSelectedEditProcess] = useState(null)
+  const [openEditProcess, setOpenEditProcess] = useState(false);
+  const [selectedEditProcess, setSelectedEditProcess] = useState(null);
+  const [openRegisterProcess, setOpenRegisterProcess] = useState(false);
 
   function handleOpenProcessDetails(openClose, processo) {
     setSelectedProcess(processo);
     setOpenProcessDetails(openClose);
   }
 
-  function handleClickOpenSettings(openClose) {    
-    setOpenUserEdit(openClose);    
+  function handleClickOpenSettings(openClose) {
+    setOpenUserEdit(openClose);
   }
 
   function handleClickOpenEditProcess(openClose, processo) {
     setSelectedEditProcess(processo);
-    setOpenEditProcess(openClose)
+    setOpenEditProcess(openClose);
+  }
+
+  function handleClickOpenRegisterProcess(openClose) {
+    setOpenRegisterProcess(openClose);
+    console.log(openRegisterProcess)
   }
 
   return (
@@ -37,7 +43,9 @@ export function ModalProvider({ children }) {
         openUserEdit,
         handleClickOpenEditProcess,
         openEditProcess,
-        selectedEditProcess
+        selectedEditProcess,
+        handleClickOpenRegisterProcess,
+        openRegisterProcess,
       }}
     >
       {children}

@@ -33,7 +33,12 @@
   padding: 40px;
   border-radius: 10px;
 
-  background-color: white;
+  background-color: rgba(var(--cor-branco), 0.94);
+}
+
+.process-details-dark .container-process .chart-process {
+  background-color: rgba(var(--cor-preto), 0.94);
+  border: 1px solid rgba(var(--cor-rosa), .3);
 }
 
 .process-details .container-process .chart-process img {
@@ -56,6 +61,12 @@
   background-color: rgba(var(--cor-roxo), 0.6);
 }
 
+.process-details-dark .container-process .chart-process h3 {
+  background-color: rgba(var(--cor-rosa), 0.6);
+  color: rgba(var(--cor-branco), 0.9);
+  font-weight: 300;
+}
+
 .process-details .container-process .chart-process ul {
   display: flex;
   flex-direction: column;
@@ -68,6 +79,10 @@
   background-color: rgba(var(--cor-roxo), 0.2);
 }
 
+.process-details-dark .container-process .chart-process ul {
+  background-color: rgba(var(--cor-rosa), 0.14);
+}
+
 .process-details .container-process .chart-process ul li {
   width: 80%;
   height: 20px;
@@ -75,6 +90,11 @@
 
   font-weight: 600;
   font-family: "fonte";
+}
+
+.process-details-dark .container-process .chart-process ul li {
+  color: rgba(var(--cor-branco), 1);
+  font-weight: 300;
 }
 
 .process-details .container-process .chart-process ul p {

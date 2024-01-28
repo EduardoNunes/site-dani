@@ -33,7 +33,12 @@
   padding: 40px;
   border-radius: 10px;
 
-  background-color: white;
+  background-color: rgba(var(--cor-branco), 0.9);
+}
+
+.edit-process-dark .container-process .chart-process {
+  background-color: rgba(var(--cor-preto), 1);
+  border: 1px solid rgba(var(--cor-roxo), 0.5);
 }
 
 .edit-process .container-process .chart-process img {
@@ -56,6 +61,12 @@
   background-color: rgba(var(--cor-roxo), 0.6);
 }
 
+.edit-process-dark .container-process .chart-process h3 {
+  background-color: rgba(var(--cor-rosa), 0.6);
+  color: rgba(var(--cor-branco), 0.9);
+  font-weight: 300;
+}
+
 .edit-process .container-process .chart-process form {
   display: flex;
   flex-direction: column;
@@ -69,6 +80,10 @@
   background-color: rgba(var(--cor-roxo), 0.2);
 }
 
+.edit-process-dark .container-process .chart-process form {
+  background-color: rgba(var(--cor-rosa), 0.2);
+}
+
 .edit-process .container-process .chart-process form label {
   width: 80%;
   height: 20px;
@@ -76,6 +91,11 @@
 
   font-weight: 600;
   font-family: "fonte";
+}
+
+.edit-process-dark .container-process .chart-process form label {
+  color: rgba(var(--cor-branco), 0.9);
+  font-weight: 300;
 }
 
 .edit-process .container-process .chart-process form input {

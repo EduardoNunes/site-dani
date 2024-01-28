@@ -31,7 +31,6 @@ function EditUser() {
       setUserData(user);
       setNome(user.nome);
       setEmail(user.email);
-      setSenha(user.senha);
     } catch (error) {
       console.error(error);
     }

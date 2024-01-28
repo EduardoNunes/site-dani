@@ -22,13 +22,15 @@
 
 .client-page .container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   position: absolute;
 
   width: 100%;
   height: 100%;
-  margin-top: 130px;
+
+  margin-top: 100px;
   background-color: rgba(var(--cor-branco), 0.6);
 }
 
@@ -37,7 +39,7 @@
 }
 
 .client-page .container .table {
-  height: 90%;
+  height: 80%;
   width: 76%;
   border-radius: 10px;
   border: 1px solid black;
@@ -86,33 +88,45 @@
 }
 
 .client-page-dark .container .table .content .title ul li {
-  color: rgba(var(--cor-branco), 0.8);
+  color: rgba(var(--cor-branco), 0.9);
+  font-weight: 300;
 }
 
 .client-page .container .table .content .body {
-  height: calc(100% - 40px);
+  height: 90%;
+  border-radius: 10px;
+  overflow-y: auto;
 }
 
 .client-page .container .table .content .body .line {
-  display: flex;
   height: 10%;
   cursor: pointer;
 }
 
-.client-page-dark .container .table .content .body .line {
-  background-color: rgba(var(--cor-rosa), 0.05);
-  color: rgba(var(--cor-branco), 1);
-}
-
 .client-page .container .table .content .body .line:hover {
   background-color: rgba(var(--cor-roxo), 0.2);
+  border-top: 1px solid rgba(var(--cor-preto), 0.5);
+    border-bottom: 1px solid rgba(var(--cor-preto), 0.5);
 }
 
 .client-page-dark .container .table .content .body .line:hover {
   background-color: rgba(var(--cor-rosa), 0.2);
 }
 
-.client-page .container .table .content .body .line p {
+
+.client-page-dark .container .table .content .body .line {
+  background-color: rgba(var(--cor-rosa), 0.05);
+  color: rgba(var(--cor-branco), .9);
+}
+
+.client-page .container .table .content .body .line ul {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  list-style: none;
+}
+
+.client-page .container .table .content .body .line ul li {
   display: flex;
   align-items: center;
 
@@ -120,15 +134,21 @@
   height: 100%;
   padding-left: 10px;
 
-  border-right: 1px solid black;
-  border-bottom: 1px solid black;
-
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
+  border-right: 1px solid rgba(var(--cor-preto), .8);
+  border-bottom: 1px solid rgba(var(--cor-roxo), 0.5);  
 }
 
-.client-page-dark .container .table .content .body .line p {
-  border-right: 1px solid rgba(var(--cor-rosa), 1);
-  border-bottom: 1px solid rgba(var(--cor-rosa), 1);
+.client-page .container .table .content .body .line ul li:last-child {
+  border-right: none;
+}
+
+.client-page-dark .container .table .content .body .line ul li {
+  border-right: 1px solid rgba(var(--cor-rosa), .7);
+  border-bottom: 1px solid rgba(var(--cor-rosa), .3);
+}
+
+.client-page .container .table .content .body .line ul li p {
+  white-space: nowrap;
+  text-overflow: ellipsis;  
+  overflow: hidden;
 }

@@ -20,7 +20,7 @@ function ProcessDetails({ processo }) {
   } = processo;
 
   return (
-    <div className="process-details">
+    <div className={`process-details process-details-${theme}`}>
       <div className="container-process">
         <div className="chart-process">
           <img
