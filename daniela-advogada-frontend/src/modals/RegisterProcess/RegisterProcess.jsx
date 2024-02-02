@@ -3,32 +3,33 @@ import XPreto from "../../assets/x-preto.png";
 import XBranco from "../../assets/x-branco.png";
 import { useTheme } from "../../context/ThemeContext";
 import { useModal } from "../../context/ModalsContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import api from "../../services/api";
 import { getItem } from "../../utils/storage";
 
 function RegisterProcess() {
   const { theme } = useTheme();
   const { handleClickOpenRegisterProcess } = useModal();
-  const [autor, setAutor] = useState();
-  const [reu, setReu] = useState();
-  const [numero, setNumero] = useState();
-  const [vara, setVara] = useState();
-  const [juiz, setJuiz] = useState();
-  const [comarca, setComarca] = useState();
-  const [data_entrada, setData_Entrada] = useState();
-
-  const [atualizado, setAtualizado] = useState();
-  const [infos, setInfos] = useState();
+  const [clientes, setClientes] = useState([]);
+  const [selectedClient, setSelectedClient] = useState("");
+  const [autor, setAutor] = useState("");
+  const [reu, setReu] = useState("");
+  const [numero, setNumero] = useState("");
+  const [vara, setVara] = useState("");
+  const [juiz, setJuiz] = useState("");
+  const [comarca, setComarca] = useState("");
+  const [data_entrada, setData_Entrada] = useState("");
+  const [atualizado, setAtualizado] = useState("");
+  const [infos, setInfos] = useState("");
   const token = getItem("token");
-  const id = getItem("id");
+  //const id = getItem("id");
 
   async function handleSubmit(event) {
     event.preventDefault();
 
     try {
       const response = await api.post(
-        `/editarProcessoEscritorio/${id}`,
+        `/cadastrarProcesso`,
         {
           autor,
           reu,
@@ -39,17 +40,35 @@ function RegisterProcess() {
           data_entrada,
           atualizado,
           infos,
+          usuarios_id: selectedClient,
         },
         {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
+      
       handleClickOpenRegisterProcess(false);
-      console.log("Processo atualizado com sucesso!", response.data);
+      console.log("Processo cadastrado com sucesso!", response.data);
     } catch (error) {
       console.error(error);
     }
   }
+
+  async function showClients() {
+    try {
+      const response = await api.get("/listarClientes", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      setClientes(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  useEffect(() => {
+    showClients();
+  }, []);
 
   return (
     <div className={`register-process register-process-${theme}`}>
@@ -63,6 +82,19 @@ function RegisterProcess() {
           />
           <h3>Cadastrar Processo</h3>
           <form onSubmit={handleSubmit}>
+            <label>Cliente:</label>
+            <select
+              value={selectedClient}
+              onChange={(e) => setSelectedClient(e.target.value)}
+            >
+              <option value="">Selecione um cliente</option>
+              {clientes &&
+                clientes.map((cliente) => (
+                  <option key={cliente.id} value={cliente.id}>
+                    {cliente.nome}
+                  </option>
+                ))}
+            </select>
             <label>Autor:</label>
             <input
               value={autor}

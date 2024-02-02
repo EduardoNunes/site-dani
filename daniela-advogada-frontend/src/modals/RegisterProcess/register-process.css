@@ -98,6 +98,7 @@
     font-weight: 300;
   }
   
+  .register-process .container-process .chart-process form select,
   .register-process .container-process .chart-process form input {
     display: flex;
     align-items: center;

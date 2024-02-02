@@ -8,6 +8,7 @@ const cadastrarUsuario = require("../controladores/clientes/cadastrarCliente");
 const autenticarEditarUsuario = require("../intermediarios/autenticarEditarUsuario");
 const editarUsuarioSchema = require("../schemas/editarUsuarioSchema");
 const atualizarUsuario = require("../controladores/usuarios/atualizarUsuario");
+const verificarUsuarioLogado = require("../intermediarios/verificarUsuarioLogado");
 
 const rotas = express();
 
@@ -19,10 +20,9 @@ rotas.post(
 
 rotas.post("/login", autenticarLoginUsuario(loginUsuarioSchema), login);
 
+rotas.use(verificarUsuarioLogado);
+
 rotas.put(
-  "/atualizarUsuario/:id",
-  autenticarEditarUsuario(editarUsuarioSchema),
-  atualizarUsuario
-);
+  "/atualizarUsuario/:id",  autenticarEditarUsuario(editarUsuarioSchema), atualizarUsuario);
 
 module.exports = rotas;

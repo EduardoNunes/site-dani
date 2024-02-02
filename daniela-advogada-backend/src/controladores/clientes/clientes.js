@@ -1,15 +1,5 @@
 const pool = require("../../conexao");
 
-const listarClientes = async (req, res) => {
-  try {
-    const resultado = await pool.query("select * from usuarios");
-
-    return res.json(resultado.rows);
-  } catch (error) {
-    console.log(error.message);
-  }
-};
-
 const atualizarCliente = async (req, res) => {
   const { id } = req.params;
   const { nome, email, senha, tipoCadastro } = req.body;
@@ -61,6 +51,5 @@ const deletarCliente = async (req, res) => {
 };
 
 module.exports = {
-  listarClientes,
   deletarCliente,
 };
