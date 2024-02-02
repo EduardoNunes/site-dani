@@ -30,7 +30,6 @@ export function ModalProvider({ children }) {
 
   function handleClickOpenRegisterProcess(openClose) {
     setOpenRegisterProcess(openClose);
-    console.log(openRegisterProcess)
   }
 
   return (

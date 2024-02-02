@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import api from "../../services/api";
 import { getItem } from "../../utils/storage";
 
-function RegisterProcess() {
+function RegisterProcess({ updateList }) {
   const { theme } = useTheme();
   const { handleClickOpenRegisterProcess } = useModal();
   const [clientes, setClientes] = useState([]);
@@ -22,7 +22,6 @@ function RegisterProcess() {
   const [atualizado, setAtualizado] = useState("");
   const [infos, setInfos] = useState("");
   const token = getItem("token");
-  //const id = getItem("id");
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -46,8 +45,9 @@ function RegisterProcess() {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      
+
       handleClickOpenRegisterProcess(false);
+      updateList();
       console.log("Processo cadastrado com sucesso!", response.data);
     } catch (error) {
       console.error(error);
